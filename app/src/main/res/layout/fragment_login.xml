@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="loginModel"
+            type="itg8.com.labtestingapp.login.mvvm.LoginViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".login.LoginFragment">
+
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/crdContent"
+            android:layout_marginLeft="@dimen/margin_horizontal"
+            android:layout_marginRight="@dimen/margin_horizontal"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_rdo"
+                android:button="@android:color/transparent"
+                android:checked="true"
+                android:gravity="center_horizontal"
+                android:paddingTop="10dp"
+                android:onClick="@{loginModel::onLoginViewClick}"
+                android:paddingBottom="10dp"
+                android:text="LOGIN"
+                android:textColor="@color/colorPrimary" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_rdo"
+                android:button="@android:color/transparent"
+                android:onClick="@{loginModel::onRegViewClick}"
+                android:gravity="center_horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="REGISTER"
+                android:textColor="@color/colorPrimary" />
+        </RadioGroup>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/crdContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/margin_horizontal"
+            android:layout_marginRight="@dimen/margin_horizontal"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="@dimen/margin_horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/rvContentLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{loginModel.isLoginView}">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputMobileNumberLogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_32dp">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/edtMobileNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:error="@{loginModel.loginModel.userNameErr}"
+                            android:drawableLeft="@drawable/ic_action_phone"
+                            android:hint="Enter Mobile Number"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:text="@={loginModel.loginModel.username}"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:maxLength="10"
+                            android:textSize="14sp" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/inputMobileNumberLogin"
+                        app:passwordToggleEnabled="true">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/edtPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:error="@{loginModel.loginModel.passwordErr}"
+                            android:hint="Enter Password"
+                            android:drawableLeft="@drawable/ic_action_lock_closed"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:text="@={loginModel.loginModel.password}"
+                            android:inputType="textPassword"
+                            android:textSize="14sp"
+                            android:drawableStart="@drawable/ic_action_lock_closed" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llSocial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/inputPassword"
+                        android:layout_marginTop="@dimen/margin_48dp">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:onClick="@{loginModel::onFbClick}"
+                            android:src="@drawable/ic_fb" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:onClick="@{loginModel::onGPlusClick}"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_gplus" />
+                        <com.facebook.login.widget.LoginButton
+                            android:id="@+id/login_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:visibility="gone"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginBottom="30dp" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:onClick="@{loginModel::onTwitterClick}"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_twitter" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btnSignInLogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/llSocial"
+                        android:layout_marginTop="@dimen/margin_32dp"
+                        android:background="@color/colorPrimary"
+                        android:text="SIGN IN"
+                        android:onClick="@{loginModel::onLoginBtnClick}"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/btnSignInLogin"
+                        android:layout_marginTop="@dimen/margin_horizontal"
+                        android:gravity="center_horizontal"
+                        android:text="Forgot your password?" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rvRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{loginModel.isRegView}">
+
+                    <LinearLayout
+                        android:id="@+id/llRegistration"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:layout_weight="1">
+
+                            <android.support.design.widget.TextInputEditText
+                                android:id="@+id/edtIInputFName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:error="@{loginModel.regModel.fnameErr}"
+                                android:drawableLeft="@drawable/ic_action_user"
+                                android:inputType="text"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:text="@={loginModel.regModel.fname}"
+                                android:hint="First Name"
+                                android:textSize="14sp" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <android.support.design.widget.TextInputEditText
+                                android:id="@+id/edtIInputLName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:error="@{loginModel.regModel.lname}"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:inputType="text"
+                                android:layout_marginLeft="4dp"
+                                android:layout_marginRight="4dp"
+                                android:text="@={loginModel.regModel.lname}"
+                                android:drawableLeft="@drawable/ic_action_user"
+                                android:hint="Last Name"
+                                android:textSize="14sp" />
+                        </android.support.design.widget.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/llRegistration">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:inputType="textEmailAddress"
+                            android:text="@={loginModel.regModel.email}"
+                            app:error="@{loginModel.regModel.emailErr}"
+                            android:drawableLeft="@drawable/ic_action_mail"
+                            android:hint="Email Address"
+                            android:textSize="14sp" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputMobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/inputEmail">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_action_phone"
+                            app:error="@{loginModel.regModel.mobileErr}"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:hint="Mobile Number"
+                            android:text="@={loginModel.regModel.mobile}"
+                            android:inputType="number"
+                            android:maxLength="10"
+                            android:textSize="14sp"
+                            android:drawableStart="@drawable/ic_action_phone" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/inputMobile"
+                        app:passwordToggleEnabled="true">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_action_lock_closed"
+                            android:hint="Password"
+                            app:error="@{loginModel.regModel.passwordErr}"
+                            android:text="@={loginModel.regModel.password}"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:inputType="textPassword"
+                            android:minEms="6"
+                            android:textSize="14sp"
+                            android:drawableStart="@drawable/ic_action_lock_closed" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputReference"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/inputPhone">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_action_user"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:hint="Referral"
+                            android:text="@={loginModel.regModel.referenceBy}"
+                            android:inputType="text"
+                            android:minEms="6"
+                            android:textSize="14sp"
+                            android:drawableStart="@drawable/ic_action_user" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+
+
+                    <Button
+                        android:id="@+id/btnSignIn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/inputReference"
+                        android:layout_marginTop="@dimen/margin_32dp"
+                        android:background="@color/colorPrimary"
+                        android:text="REGISTER "
+                        android:onClick="@{loginModel::registerBtnClick}"
+                        android:textColor="@color/white" />
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/inputReference"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/margin_32dp" />
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+    </RelativeLayout>
+</layout>
+

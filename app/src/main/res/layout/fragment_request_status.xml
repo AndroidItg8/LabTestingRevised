@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="reqStatusModel"
+            type="itg8.com.labtestingapp.req_status.mvvm.RequestStatusViewModel" />
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{reqStatusModel.isProgress}" />
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:visibility="@{reqStatusModel.isNoData}"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/txt_18"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:gravity="center"
+                android:text="No Data Available"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".req_status.RequestStatusFragment"
+        app:customReqStatusAdapter="@{reqStatusModel.genericAdapter}"/>
+    </FrameLayout>
+</layout>

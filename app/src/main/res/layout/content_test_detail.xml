@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <variable
+            name="model"
+            type="itg8.com.labtestingapp.test.mvvm.TestDetailViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <WebView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/rvButtons"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".test.TestDetailActivity"
+            tools:showIn="@layout/activity_test_detail">
+
+        </WebView>
+
+        <RelativeLayout
+            android:id="@+id/rvButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:padding="@dimen/_10sdp">
+
+            <TextView
+                android:id="@+id/txtPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Price : "
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:layout_marginRight="@dimen/_4sdp"
+                android:text="@{model.test.productpricetext}"
+                android:layout_toEndOf="@+id/txtPrice"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/txtPrice"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imgTest"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/_14sdp">
+
+                <TextView
+                    android:id="@+id/btnPlus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/txtQty"
+                    android:layout_toRightOf="@+id/txtQty"
+                    android:background="@color/colorPrimaryDark"
+                    android:onClick="@{()->model.onTestIncrease()}"
+                    android:paddingLeft="@dimen/_4sdp"
+                    android:paddingRight="@dimen/_4sdp"
+
+                    android:text="+"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sdp" />
+
+                <TextView
+                    android:id="@+id/txtQty"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/btnMinus"
+                    android:layout_toRightOf="@+id/btnMinus"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/_4sdp"
+                    android:paddingRight="@dimen/_4sdp"
+                    android:text="@{String.valueOf(model.test.itemCartSize)}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16sdp" />
+
+                <TextView
+                    android:id="@+id/btnMinus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:onClick="@{()->model.onTestDescrease()}"
+                    android:paddingLeft="@dimen/_6sdp"
+                    android:paddingRight="@dimen/_6sdp"
+                    android:text="-"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sdp" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>
+

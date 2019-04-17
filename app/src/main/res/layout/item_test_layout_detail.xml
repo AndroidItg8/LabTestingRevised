@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="position"
+            type="Integer" />
+        <variable
+            name="model"
+            type="itg8.com.labtestingapp.req_status.mvvm.TestItemViewModel" />
+        <variable
+            name="rawmodel"
+            type="itg8.com.labtestingapp.db.tables.Test" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        android:onClick="@{()->model.setOnTestClickListener(rawmodel)}"
+        app:cardPreventCornerOverlap="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/txt_18"
+                android:textColor="@color/black"
+                android:layout_toLeftOf="@+id/imgCart"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:gravity="left"
+                android:text="@{model.model.name}"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtName"
+                android:id="@+id/lblPrice"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginLeft="10dp"
+                android:text="Price : "
+                />
+            <TextView
+                android:id="@+id/textPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtName"
+                android:layout_toEndOf="@+id/lblPrice"
+                android:layout_marginLeft="10dp"
+                android:text="@{model.model.productpricetext}"
+                android:layout_toRightOf="@+id/lblPrice"
+                android:layout_marginRight="10dp"
+                />
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+</layout>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="reqStatusModel"
+            type="itg8.com.labtestingapp.req_status.mvvm.ReqStatusDetailViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_8"
+            tools:context=".req_status.RequestStatusDetailFragment">
+
+            <!--"requestorderid": "ORD916194",-->
+            <!--"citymaster_id": "124",-->
+            <!--"approvedbyadmin": "0",-->
+            <!--"acceptbysubadmin": "0",-->
+            <!--"pickstatus": "1",-->
+            <!--"address": "Nagpur gayatri namgar",-->
+            <!--"pincode": "440022",-->
+            <!--"totalamount": "",-->
+            <!--"created": "2018-12-27 07:46:56"-->
+
+            <TableLayout
+                android:id="@+id/tblDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Date : "
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="#fff"
+                        android:layout_weight="1"
+                        android:padding="5dp"
+                        android:text="@{reqStatusModel.model.requestmaster.created}"
+                        android:textColor="#000" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Order ID : "
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_column="0"
+                        android:layout_marginLeft="10dp"
+                        android:background="#fff"
+                        android:padding="5dp"
+                        android:text="@{reqStatusModel.model.requestmaster.requestorderid}"
+                        android:textColor="#000" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Address : "
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:background="#fff"
+                        android:padding="5dp"
+                        android:text="@{reqStatusModel.model.requestmaster.address}"
+                        android:textColor="#000" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="City : "
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:background="#fff"
+                        android:padding="5dp"
+                        android:text="@{reqStatusModel.cityname}"
+                        android:textColor="#000" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Pincode : "
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:background="#fff"
+                        android:padding="5dp"
+                        android:text="@{reqStatusModel.model.requestmaster.pincode}"
+                        android:textColor="#000" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Amount : "
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:background="#fff"
+                        android:padding="5dp"
+                        android:text="@{reqStatusModel.model.requestmaster.totalamount}"
+                        android:textColor="#000" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Status : "
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:background="#fff"
+                        android:padding="5dp"
+                        android:text="@{reqStatusModel.status}"
+                        android:textColor="#000" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/lblWorkOrder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tblDetail"
+                android:textColor="@color/colorPrimary"
+                android:text="Work Order"
+                android:gravity="center"
+                android:layout_marginTop="8dp"/>
+
+            <ImageView
+                android:id="@+id/imgFile"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_below="@+id/lblWorkOrder"
+                android:layout_centerHorizontal="true"
+                app:img_path_detail="@{reqStatusModel.imgPath}"
+                />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgFile"
+                android:layout_marginTop="10dp"
+                app:customTestAdapter="@{reqStatusModel.genericAdapter}" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</layout>

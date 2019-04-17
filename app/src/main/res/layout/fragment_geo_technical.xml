@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="geomodel"
+            type="itg8.com.labtestingapp.geotechnical.mvvm.GeoTechViewModel" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/_10sdp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="@dimen/_8sdp"
+        tools:context=".ndt.NDTFragment">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Purpose of investigation"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_12sdp" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    app:error="@{geomodel.model.purposeOfInvestigationErr}">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"
+                        android:lines="3"
+                        android:padding="@dimen/_2sdp"
+                        android:text="@={geomodel.model.purposeOfInvestigation}" />
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Area in (Hectares) to be investigated"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_12sdp" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    app:error="@{geomodel.model.areaErr}">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|start"
+                        android:inputType="number"
+                        android:lines="1"
+                        android:padding="@dimen/_2sdp"
+                        android:text="@={geomodel.model.area}" />
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Location of site to be investigated"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_12sdp" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    app:error="@{geomodel.model.locationOfSiteErr}">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"
+                        android:lines="3"
+                        android:padding="@dimen/_2sdp"
+                        android:text="@={geomodel.model.locationOfSite}" />
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Any  other requirements"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_12sdp" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    >
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:gravity="top|start"
+                    android:inputType="textMultiLine"
+                    android:lines="3"
+                    android:padding="@dimen/_2sdp"
+                    android:text="@={geomodel.model.other}" />
+                </android.support.design.widget.TextInputLayout>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_16sdp">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:onClick="@{geomodel::sendRequest}"
+                    android:text="Request for Callback"
+                    android:visibility="@{geomodel.isProgress?View.GONE:View.VISIBLE}"
+                    android:textColor="@color/white" />
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="@{geomodel.isProgress?View.VISIBLE:View.GONE}" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:text="(For detailed enquiry and quotation)" />
+
+                <!--//    Q5) -->
+                <!--//    Ans) Comment Box    -->
+
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+
+    </android.support.v7.widget.CardView>
+</layout>

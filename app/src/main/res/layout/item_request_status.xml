@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="position"
+            type="Integer" />
+        <variable
+            name="model"
+            type="itg8.com.labtestingapp.req_status.mvvm.ReqStatViewModel" />
+        <variable
+            name="rawmodel"
+            type="itg8.com.labtestingapp.req_status.model.RequestStatusModel" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardPreventCornerOverlap="true"
+        android:layout_margin="@dimen/margin_8"
+        android:onClick="@{()->model.showDetail(position,rawmodel)}">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_8">
+            <TextView
+                android:id="@+id/lblDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorGray"
+                android:text="@{rawmodel.requestmaster.created}"
+                android:textSize="@dimen/txt_14"
+                />
+
+            <TextView
+                android:id="@+id/lblAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblDate"
+                android:layout_marginTop="8dp"
+                android:textSize="@dimen/txt_14"
+                android:textColor="@color/colorPrimary"
+                android:text="Address : "/>
+
+            <TextView
+                android:id="@+id/txtAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/lblAddress"
+                android:layout_below="@+id/lblDate"
+                android:layout_marginTop="@dimen/margin_8"
+                android:text="@{rawmodel.requestmaster.address}"
+                android:layout_toRightOf="@+id/lblAddress"
+                android:textSize="@dimen/txt_16"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtAddress"
+                android:layout_marginTop="@dimen/margin_8"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/txt_14"
+                android:text="Amount : "/>
+
+
+            <TextView
+                android:id="@+id/txtAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/lblAddress"
+                android:layout_below="@+id/txtAddress"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_toRightOf="@+id/lblAddress"
+                android:text="@{rawmodel.requestmaster.totalamount}"
+                android:textSize="@dimen/txt_16" />
+
+        </RelativeLayout>
+
+</android.support.v7.widget.CardView>
+</layout>

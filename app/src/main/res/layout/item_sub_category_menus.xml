@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="position"
+            type="Integer" />
+        <variable
+            name="model"
+            type="itg8.com.labtestingapp.home.mvvm.SubCategoryViewModel" />
+
+        <variable
+            name="rawmodel"
+            type="itg8.com.labtestingapp.db.tables.SubCategory" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        android:layout_marginLeft="4dp"
+        android:onClick="@{()->model.setOnItemClick(position,rawmodel)}"
+        android:layout_marginRight="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+
+            <ImageView
+                android:id="@+id/imgCategoryImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:imageUrl="@{model.model.image}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgCategoryImage"
+                android:layout_alignStart="@+id/imgCategoryImage"
+                android:layout_alignLeft="@+id/imgCategoryImage"
+                android:layout_alignEnd="@+id/imgCategoryImage"
+                android:layout_alignRight="@+id/imgCategoryImage"
+                android:gravity="center"
+                android:text="@{model.model.name}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</layout>

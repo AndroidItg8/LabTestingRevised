@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "124863731432",
+    "firebase_url": "https://labtest-b8d10.firebaseio.com",
+    "project_id": "labtest-b8d10",
+    "storage_bucket": "labtest-b8d10.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124863731432:android:6489f06699557002",
+        "android_client_info": {
+          "package_name": "itg8.com.labtestingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124863731432-26hs7iovc9hm30pg1v9bdr4jd79mooja.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "itg8.com.labtestingapp",
+            "certificate_hash": "3fa25ba6ccd42486df2aa9881b99ac7b8c0498c8"
+          }
+        },
+        {
+          "client_id": "124863731432-uhemt8utqguh3ud9rli5h1g2cuag9drc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD50OKpnjHwz3u6lM-LAX8xhyLOtBA7dVo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124863731432-uhemt8utqguh3ud9rli5h1g2cuag9drc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="view"
+            type="android.view.View" />
+        <variable
+            name="requestModel"
+            type="itg8.com.labtestingapp.request.mvvm.RequestViewModel" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".request.FrequestFragment">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_horizontal"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_horizontal"
+                android:layout_marginRight="@dimen/margin_horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputSiteLoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:error="@{requestModel.requestModel.addressErr}">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|left"
+                        android:hint="Site Location Address"
+                        android:lines="3"
+                        android:text="@={requestModel.requestModel.address}"
+                        android:textSize="14sp" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/lblState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/inputSiteLoc"
+                    android:layout_marginTop="@dimen/margin_4dp"
+                    android:text="Select State"
+                    android:textColor="@color/colorPrimary" />
+
+                <Spinner
+                    android:id="@+id/spnrState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lblState"
+                    app:customListener="@{requestModel.cityListener}"
+                    app:customEntriesState="@{requestModel.states}"
+                    app:customEntriesStateModel="@{requestModel.requestModel}"/>
+
+                <TextView
+                    android:id="@+id/lblCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/spnrState"
+                    android:layout_marginTop="@dimen/margin_4dp"
+                    android:text="Select City"
+                    android:textColor="@color/colorPrimary" />
+
+                <Spinner
+                    android:id="@+id/spnrCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lblCity"
+                    app:customEntriesCity="@{requestModel.cities}"
+                    app:customEntriesCityModel="@{requestModel.requestModel}"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputPincode"
+                    android:layout_width="match_parent"
+                    app:error="@{requestModel.requestModel.pincodeErr}"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/spnrCity">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter Pin code"
+                        android:text="@={requestModel.requestModel.pincode}"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:onTextChanged="@{requestModel.onTextChanged}"
+                        android:textSize="14sp" />
+                </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                    android:id="@+id/llFindBranch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/inputPincode"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ProgressBar
+                        android:id="@+id/progressbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp" />
+
+                    <TextView
+                        android:id="@+id/lblFindBranch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Trying to find best branch for yur test" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/llFindBranch"
+                    >
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_horizontal"
+                    android:layout_marginTop="@dimen/margin_horizontal"
+                    android:layout_marginRight="@dimen/margin_horizontal"
+                    android:layout_marginBottom="@dimen/margin_horizontal"
+                    android:background="@color/colorPrimary"
+                    android:text="NEXT"
+                    android:visibility="@{requestModel.progress?view.GONE:view.VISIBLE}"
+                    android:onClick="@{requestModel::onNextClicked}"
+                    android:textColor="@color/white" />
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_horizontal"
+                        android:layout_marginTop="@dimen/margin_horizontal"
+                        android:layout_marginRight="@dimen/margin_horizontal"
+                        android:layout_marginBottom="@dimen/margin_horizontal"
+                        android:layout_gravity="center"
+                        android:visibility="@{requestModel.progress?view.VISIBLE:view.GONE}"
+                        />
+                </FrameLayout>
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+</layout>

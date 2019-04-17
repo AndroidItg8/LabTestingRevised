@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <database name="bidgurucake">
+        <!-- Table statemasters -->
+        <table name="statemasters">
+            <column name="id">1</column>
+            <column name="name">Andaman and Nicobar Islands</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">2</column>
+            <column name="name">Andhra Pradesh</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">3</column>
+            <column name="name">Arunachal Pradesh</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">4</column>
+            <column name="name">Assam</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">5</column>
+            <column name="name">Bihar</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">6</column>
+            <column name="name">Chandigarh</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">7</column>
+            <column name="name">Chhattisgarh</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">8</column>
+            <column name="name">Dadra and Nagar Haveli</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">9</column>
+            <column name="name">Daman and Diu</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">10</column>
+            <column name="name">Delhi</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">11</column>
+            <column name="name">Goa</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">12</column>
+            <column name="name">Gujarat</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">13</column>
+            <column name="name">Haryana</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">14</column>
+            <column name="name">Himachal Pradesh</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">15</column>
+            <column name="name">Jammu and Kashmir</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">16</column>
+            <column name="name">Jharkhand</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">17</column>
+            <column name="name">Karnataka</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">18</column>
+            <column name="name">Kenmore</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">19</column>
+            <column name="name">Kerala</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">20</column>
+            <column name="name">Lakshadweep</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">21</column>
+            <column name="name">Madhya Pradesh</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">22</column>
+            <column name="name">Maharashtra</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">23</column>
+            <column name="name">Manipur</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">24</column>
+            <column name="name">Meghalaya</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">25</column>
+            <column name="name">Mizoram</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">26</column>
+            <column name="name">Nagaland</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">27</column>
+            <column name="name">Narora</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">28</column>
+            <column name="name">Natwar</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">29</column>
+            <column name="name">Odisha</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">30</column>
+            <column name="name">Paschim Medinipur</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">31</column>
+            <column name="name">Pondicherry</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">32</column>
+            <column name="name">Punjab</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">33</column>
+            <column name="name">Rajasthan</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">34</column>
+            <column name="name">Sikkim</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">35</column>
+            <column name="name">Tamil Nadu</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">36</column>
+            <column name="name">Telangana</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">37</column>
+            <column name="name">Tripura</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">38</column>
+            <column name="name">Uttar Pradesh</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">39</column>
+            <column name="name">Uttarakhand</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">40</column>
+            <column name="name">Vaishali</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+        <table name="statemasters">
+            <column name="id">41</column>
+            <column name="name">West Bengal</column>
+            <column name="countrymaster_id">101</column>
+        </table>
+    </database>

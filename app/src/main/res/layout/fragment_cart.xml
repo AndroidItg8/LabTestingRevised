@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="cartModel"
+            type="itg8.com.labtestingapp.cart.mvvm.CartViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/rvSummery"
+            app:customTestAdapter="@{cartModel.genericAdapter}"
+            tools:context=".cart.CartFragment" />
+
+        <RelativeLayout
+            android:id="@+id/rvSummery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnCheckout"
+            android:padding="@dimen/_8sdp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtTotalProduct"
+                android:text="Total Product Price"
+                android:textSize="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
+                />
+
+
+            <TextView
+                android:layout_below="@+id/txtTotalProduct"
+                android:id="@+id/lblTotalAmt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Amount"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/txtRupee1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Rs"
+                android:textSize="@dimen/_16sdp"
+                android:layout_toLeftOf="@+id/txtTotalProductPrice"
+                />
+            <TextView
+                android:id="@+id/txtTotalProductPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_16sdp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:text="@{cartModel.totalProductPrice}"
+                />
+
+
+            <TextView
+                android:id="@+id/txtRs"
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/_16sdp"
+                android:text="@string/Rs"
+                android:layout_below="@+id/txtTotalProduct"
+                android:layout_toStartOf="@+id/txtTotal"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/txtTotal" />
+
+            <TextView
+                android:id="@+id/txtTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/txtTotalProduct"
+                android:textSize="@dimen/_16sdp"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:text="@{cartModel.totalAmt}"/>
+
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnCheckout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/margin_8"
+            android:background="@color/colorPrimary"
+            android:onClick="@{cartModel::checkoutClick}"
+            android:text="CHECKOUT"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+</layout>
