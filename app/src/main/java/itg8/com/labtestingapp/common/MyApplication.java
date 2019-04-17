@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 
+import com.facebook.stetho.Stetho;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.OkHttp3Downloader;
@@ -67,6 +68,7 @@ public class MyApplication extends Application {
         super.onCreate();
         ACRA.init(this);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+        Stetho.initializeWithDefaults(this);
 //        DebugOverlay.with(this).install();
 
         isLoggingNeeded=true;

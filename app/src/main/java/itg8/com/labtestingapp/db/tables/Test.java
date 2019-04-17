@@ -8,6 +8,8 @@ import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 import itg8.com.labtestingapp.BR;
 
@@ -30,6 +32,7 @@ public class Test  extends BaseObservable implements Parcelable {
     private String image;
 
     @Ignore
+
     private int itemCartSize;
 
     public String getImage() {
@@ -160,4 +163,6 @@ public class Test  extends BaseObservable implements Parcelable {
             return new Test[size];
         }
     };
+
+
 }

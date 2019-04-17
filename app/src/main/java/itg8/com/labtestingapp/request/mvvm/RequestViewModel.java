@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Spinner;
 
+import com.google.gson.Gson;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ import itg8.com.labtestingapp.common.LatLng;
 import itg8.com.labtestingapp.common.MyApplication;
 import itg8.com.labtestingapp.common.NetworkCall;
 import itg8.com.labtestingapp.common.PlaceController;
+import itg8.com.labtestingapp.common.Prefs;
 import itg8.com.labtestingapp.common.SpinnerGenericModel;
 import itg8.com.labtestingapp.common.SpinnerItemSelect;
 import itg8.com.labtestingapp.db.repository.CityRepository;
@@ -45,7 +47,13 @@ import itg8.com.labtestingapp.db.repository.StateRepository;
 import itg8.com.labtestingapp.db.tables.City;
 import itg8.com.labtestingapp.db.tables.State;
 import itg8.com.labtestingapp.db.tables.SubAdmin;
+import itg8.com.labtestingapp.db.tables.Test;
+import itg8.com.labtestingapp.lab.LabFragment;
+import itg8.com.labtestingapp.lab.model.LabModel;
+import itg8.com.labtestingapp.rating.model.QuestionController;
+import itg8.com.labtestingapp.req_status.model.RequestStatusModel;
 import itg8.com.labtestingapp.request.model.RequestModel;
+import itg8.com.labtestingapp.request.model.RequestServerModel;
 import itg8.com.labtestingapp.splash.mvvm.StateCityController;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
@@ -59,19 +67,20 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
 
     private Context context;
     private RequestModel requestModel;
+
     public ObservableList<SpinnerGenericModel> states;
     public ObservableBoolean progress;
+    public ObservableBoolean button;
     public static ObservableList<SpinnerGenericModel> cities;
     private boolean hasPermission = false;
     private String googleKey;
     private Disposable d;
-
     private LatLng latLng;
     static Fragment fragment;
     Application application;
 
 
-    public SpinnerItemSelect.OnItemSelectListener cityListener=new SpinnerItemSelect.OnItemSelectListener() {
+    public SpinnerItemSelect.OnItemSelectListener cityListener = new SpinnerItemSelect.OnItemSelectListener() {
         @Override
         public void onItemSelect(String id) {
             downloadCitites(id);
@@ -79,12 +88,11 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
     };
 
 
-
     public RequestViewModel(Application context, Fragment fragment) {
         this.application = context;
         this.context = fragment.getContext();
         this.fragment = fragment;
-        progress=new ObservableBoolean(false);
+        progress = new ObservableBoolean(false);
         requestModel = new RequestModel();
         states = new ObservableArrayList<>();
         cities = new ObservableArrayList<>();
@@ -108,10 +116,10 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.connectTimeout(5, TimeUnit.MINUTES);
-        if(MyApplication.getInstance().isLoggingNeeded)
+        if (MyApplication.getInstance().isLoggingNeeded)
             builder.addInterceptor(interceptor);
 
-        OkHttpClient client=builder.build();
+        OkHttpClient client = builder.build();
         Retrofit retrofit = new Retrofit.Builder()
 
                 .baseUrl(CommonMethod.GOOGLE_PLACE_URL)
@@ -140,16 +148,15 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
     }
 
 
-
     private void setError(Throwable throwable) {
         throwable.printStackTrace();
         progress.set(false);
     }
 
     private void getID(LatLng latLng) {
-        Log.d(TAG, "apply: "+latLng.lng+" "+latLng.lat);
-        NearestSubAdminController controller1 = new NearestSubAdminController(latLng, MyApplication.getInstance(),fragment);
-        controller1.getSubAdmin(latLng, MyApplication.getInstance().getAllSelectedTestListInt(),new OnIDAvailListener() {
+        Log.d(TAG, "apply: " + latLng.lng + " " + latLng.lat);
+        NearestSubAdminController controller1 = new NearestSubAdminController(latLng, MyApplication.getInstance(), fragment);
+        controller1.getSubAdmin(latLng, MyApplication.getInstance().getAllSelectedTestListInt(), new OnIDAvailListener() {
 
             @Override
             public void onIDAvail(Integer integer) {
@@ -170,7 +177,7 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
 
     private void setAllStateToGenericModel() {
 
-        Observable<ResponseBody> responseBody= NetworkCall.getController().downloadStates();
+        Observable<ResponseBody> responseBody = NetworkCall.getController().downloadStates();
         Disposable disposable = responseBody.flatMap(new Function<ResponseBody, Observable<List<State>>>() {
             @Override
             public Observable<List<State>> apply(ResponseBody responseBody) throws Exception {
@@ -198,11 +205,9 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
     }
 
 
-
-
     private void downloadCitites(String id) {
 
-        Observable<ResponseBody> responseBody= NetworkCall.getController().downloadCities(id);
+        Observable<ResponseBody> responseBody = NetworkCall.getController().downloadCities(id);
         Disposable disposable = responseBody.flatMap(new Function<ResponseBody, Observable<List<City>>>() {
             @Override
             public Observable<List<City>> apply(ResponseBody responseBody) throws Exception {
@@ -231,17 +236,60 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
     }
 
 
-
-
-
     private void showError(Throwable throwable) {
 
     }
 
     public void onNextClicked(View view) {
         if (requestModel.validate()) {
-            ((MainActivity) context).fileRequestFragment(requestModel);
+            //  ((MainActivity) context).fileRequestFragment(requestModel);
+            if (MyApplication.getInstance().getCartTest() != null && MyApplication.getInstance().getCartTest().size() > 0) {
+                RequestServerModel model = new RequestServerModel();
+
+                model.setCityId(requestModel.getCity());
+                model.setStateId(requestModel.getState());
+                model.setUserId(Integer.parseInt(Prefs.getString(CommonMethod.USERID)));
+                List<Test> list = MyApplication.getInstance().getCartTest();
+                Log.d(TAG, "onNextClicked: list"+new Gson().toJson(list));
+               List<RequestServerModel.CardTest> cardTests= new ArrayList<>();
+                for (Test test :list
+                     ) {
+                    RequestServerModel.CardTest cardTest = new RequestServerModel.CardTest();
+                    cardTest.setTestId(test.id);
+                    cardTest.setQty(test.getItemCartSize());
+                    cardTests.add(cardTest);
+
+                }
+                model.setTest(cardTests);
+                Log.d(TAG, "onNextClicked: "+new Gson().toJson(model));
+
+               // sedRequestDataToServer(model);
+
+            }
+
+
         }
+    }
+
+    private void sedRequestDataToServer(RequestServerModel model) {
+        progress.set(true);
+        Observable<List<LabModel>> observable = NetworkCall.getController().postRequestTOServer(model);
+        Disposable disposable = observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<LabModel>>() {
+                    @Override
+                    public void accept(List<LabModel> labModelList) throws Exception {
+                        progress.set(false);
+                        callFragment(labModelList);
+                    }
+                }, this::showError);
+
+
+    }
+
+    private void callFragment(List<LabModel> labModelList) {
+        ((MainActivity) this.context).startFragment(LabFragment.newInstance(labModelList));
+
     }
 
     //TODO App get current location
@@ -257,16 +305,22 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
 
 
     @BindingAdapter({"error"})
-    public static void setCustomError(TextInputLayout layout,String error){
+    public static void setCustomError(TextInputLayout layout, String error) {
         layout.setError(error);
     }
 
-    @BindingAdapter(value = {"customEntriesState", "customEntriesStateModel","customListener"}, requireAll = false)
+
+
+    @BindingAdapter(value = {"customEntriesState", "customEntriesStateModel", "customListener"}, requireAll = false)
     public static void bindSpinnerAdapter(Spinner spinner, ObservableList<SpinnerGenericModel> allContriesObs, RequestModel model, SpinnerItemSelect.OnItemSelectListener listener) {
         spinner.setAdapter(new GenericSpinnerAdapter(spinner.getContext(), allContriesObs));
         SpinnerItemSelect itemDate = new SpinnerItemSelect(model, "CountryCode");
-        itemDate.setOnItemAvailListener(listener);
+      //Change Now...
+        itemDate.setOnItemAvailListener(id -> model.setState(Integer.parseInt(id)));
         spinner.setOnItemSelectedListener(itemDate);
+        itemDate.setOnItemAvailListener(listener);
+
+//        listener.onItemSelect(model.setState(Integer.parseInt(id)));
     }
 
     @BindingAdapter(value = {"customEntriesCity", "customEntriesCityModel"}, requireAll = false)
@@ -280,13 +334,12 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
     private static void getAllCities(String id, Context context) {
 
 
-
         CityRepository repository = ViewModelProviders.of(fragment).get(CityRepository.class);
         repository.getStateWiseCity(Integer.parseInt(id)).observe(fragment, new Observer<List<City>>() {
             @Override
             public void onChanged(@Nullable List<City> cities) {
                 List<SpinnerGenericModel> models = new ArrayList<>();
-                if(cities!=null) {
+                if (cities != null) {
                     for (City city :
                             cities) {
                         models.add(new SpinnerGenericModel(String.valueOf(city.getId()), city.getName()));

@@ -1,6 +1,5 @@
 package itg8.com.labtestingapp.home.mvvm;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -10,19 +9,16 @@ import android.databinding.ObservableArrayList;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import java.util.List;
 
 import itg8.com.labtestingapp.MainActivity;
-import itg8.com.labtestingapp.common.MyApplication;
 import itg8.com.labtestingapp.common.genericRv.GenericAdapter;
 import itg8.com.labtestingapp.db.repository.MainCategoryRepository;
 import itg8.com.labtestingapp.db.tables.MainCategory;
-import itg8.com.labtestingapp.db.tables.SubCategory;
-import itg8.com.labtestingapp.home.HomeFragment;
+
 
 public class HomeViewModel extends BaseObservable {
 

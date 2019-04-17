@@ -86,6 +86,7 @@
                     android:id="@+id/inputPincode"
                     android:layout_width="match_parent"
                     app:error="@{requestModel.requestModel.pincodeErr}"
+                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/spnrCity">
 
@@ -138,7 +139,7 @@
                     android:layout_marginRight="@dimen/margin_horizontal"
                     android:layout_marginBottom="@dimen/margin_horizontal"
                     android:background="@color/colorPrimary"
-                    android:text="NEXT"
+                    android:text="Next"
                     android:visibility="@{requestModel.progress?view.GONE:view.VISIBLE}"
                     android:onClick="@{requestModel::onNextClicked}"
                     android:textColor="@color/white" />

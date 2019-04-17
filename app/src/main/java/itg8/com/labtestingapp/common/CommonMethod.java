@@ -8,8 +8,10 @@ import itg8.com.labtestingapp.MainActivity;
 public class CommonMethod {
 //    public static final String BASE_URL = "http://labtest.itechgalaxysolutions.com/";
 //    public static final String BASE_URL = "http://192.168.0.125/labtest/";
-    public static final String BASE_URL = "http://www.indianberg.in/test/";
+    public static final String BASE_URL = "http://192.168.0.107/labtest/";
+//    public static final String BASE_URL = "http://www.indianberg.in/test/";
     public static final String IMAGE_URL=BASE_URL+"img/procatandsubcat/";
+//    public static final String IMAGE_URL=BASE_URL+"img/procatandsubcat/";
     public static final String APP_DB = "lab_test_db";
 
 

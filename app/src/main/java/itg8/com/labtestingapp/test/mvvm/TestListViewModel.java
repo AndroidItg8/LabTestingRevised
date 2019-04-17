@@ -12,6 +12,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.widget.ImageView;
+
+import com.google.gson.Gson;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -29,6 +36,7 @@ public class TestListViewModel extends BaseObservable {
     private Context context;
     public ObservableArrayList<Test> tests;
     TestRepository repository;
+    private static final String TAG = "TestListViewModel";
 
     public OnTestItemListener listener=new OnTestItemListener() {
 
@@ -54,8 +62,7 @@ public class TestListViewModel extends BaseObservable {
                 MyApplication.getInstance().removeTestInCart(tests.get(position));
                 tests.get(position).setItemCartSize(tests.get(position).getItemCartSize()-1);
                genericAdapter.notifyItemChanged(position);
-
-            ((MainActivity) context).invalidateOptionsMenu();
+               ((MainActivity) context).invalidateOptionsMenu();
 //            }
         }
     };
@@ -77,6 +84,7 @@ public class TestListViewModel extends BaseObservable {
         repository.getTest(id).observe(fragment, new Observer<List<Test>>() {
             @Override
             public void onChanged(@Nullable List<Test> testList) {
+                Log.d(TAG, "onChanged: "+new Gson().toJson(testList));
                 tests.addAll(testList);
                 genericAdapter.notifyDataSetChanged();
             }
@@ -96,6 +104,8 @@ public class TestListViewModel extends BaseObservable {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(adapter);
     }
+
+
 
     public interface OnTestItemListener extends BaseClickListner {
         void onTestIncrease(Test test, Integer position);

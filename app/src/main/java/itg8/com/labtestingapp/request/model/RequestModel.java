@@ -4,6 +4,8 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.text.TextUtils;
 
+
+
 import itg8.com.labtestingapp.BR;
 
 public class RequestModel extends BaseObservable {
@@ -19,6 +21,8 @@ public class RequestModel extends BaseObservable {
     private String pincodeErr;
     private String lat;
     private String lng;
+    private int state;
+
 
     @Bindable
     public String getAddressErr() {
@@ -96,10 +100,21 @@ public class RequestModel extends BaseObservable {
         {
             isValid=false;
             setAddressErr(INVALID_ADDRESS);
-        }if(TextUtils.isEmpty(pincode)){
-            isValid=false;
-            setPincodeErr(INVALID_PINCODE);
         }
         return isValid;
     }
+
+    public void setState(int state) {
+
+        this.state = state;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+//    if(TextUtils.isEmpty(pincode)){
+//        isValid=false;
+//        setPincodeErr(INVALID_PINCODE);
+//    }
 }

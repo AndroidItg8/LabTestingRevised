@@ -61,10 +61,14 @@ public class CategoryViewModel extends BaseObservable implements ViewModel<MainC
     @BindingAdapter({"imageUrl"})
     public static void loadImage(ImageView view, String imageUrl) {
         final  String imageUrlFull=CommonMethod.IMAGE_URL+imageUrl;
+        Log.d(TAG, "loadImage: "+imageUrlFull);
+
         if(imageUrl!=null) {
             Picasso.get()
                     .load(imageUrlFull)
+
                     .networkPolicy(NetworkPolicy.OFFLINE)
+
                     .into(view, new Callback() {
                         @Override
                         public void onSuccess() {

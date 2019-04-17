@@ -30,6 +30,7 @@ public class CategoryController {
     private String resource;
 
     public CategoryController(String resource) {
+        Log.d(TAG, "CategoryController resorese: "+resource);
         this.resource = resource;
     }
 

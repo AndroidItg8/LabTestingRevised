@@ -32,8 +32,8 @@
 
             <ImageView
                 android:id="@+id/imgCategoryImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="@dimen/_130sdp"
+                android:layout_height="@dimen/_130sdp"
                 app:imageUrl="@{model.model.image}" />
 
             <TextView

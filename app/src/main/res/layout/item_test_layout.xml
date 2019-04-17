@@ -19,6 +19,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardUseCompatPadding="true"
+    android:onClick="@{()->model.setOnTestClickListener(rawmodel)}"
+
     app:cardPreventCornerOverlap="true">
 
     <RelativeLayout
@@ -29,9 +31,9 @@
 
 
         <ImageView
-            android:layout_width="@dimen/_64sdp"
-            android:onClick="@{()->model.setOnTestClickListener(rawmodel)}"
-            android:layout_height="@dimen/_64sdp"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            app:imageUrl="@{model.model.image}"
             android:id="@+id/imgTest"/>
 
         <TextView
@@ -42,7 +44,6 @@
             android:layout_toRightOf="@+id/imgTest"
             android:textColor="@color/black"
             android:layout_marginBottom="10dp"
-            android:onClick="@{()->model.setOnTestClickListener(rawmodel)}"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:gravity="left"
@@ -55,6 +56,7 @@
             android:layout_toRightOf="@+id/imgTest"
             android:textColor="@color/colorPrimary"
             android:layout_marginLeft="10dp"
+            android:visibility="gone"
             android:text="Price : "
             />
         <TextView
@@ -66,8 +68,8 @@
             android:layout_marginLeft="10dp"
             android:text="@{model.model.productpricetext}"
             android:layout_toRightOf="@+id/lblPrice"
-            android:layout_marginRight="10dp"
-            />
+            android:visibility="gone"
+            android:layout_marginRight="10dp" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -87,7 +89,6 @@
                 android:textColor="@color/white"
                 android:background="@color/colorPrimaryDark"
                 android:onClick="@{()->model.onAddClick(model.model,position)}"
-
                 android:layout_toRightOf="@+id/txtQty"
                 android:paddingLeft="@dimen/_4sdp"
                 android:paddingRight="@dimen/_4sdp"/>

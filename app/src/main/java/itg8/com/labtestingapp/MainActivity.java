@@ -199,6 +199,8 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         }
     }
 
+
+
     private void updateApp() {
         Prefs.remove(CommonMethod.ALL_SET_UP);
         startActivity(new Intent(this, SplashActivity.class));
@@ -210,6 +212,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     }
 
     public void openRequestStatusFragment() {
+
         if (Prefs.contains(CommonMethod.USERID)) {
             startFragment(RequestStatusFragment.newInstance());
         } else {
@@ -250,7 +253,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
     }
 
-    private void startFragment(Fragment fragment) {
+    public void startFragment(Fragment fragment) {
         this.fragment = fragment.getClass().getSimpleName();
         ft = fm.beginTransaction();
         ft.replace(R.id.frame_container, fragment, this.fragment)
@@ -271,7 +274,6 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     }
 
 
-
     private void hideKeyboard() {
         View view = this.getCurrentFocus();
         if (view != null) {
@@ -279,7 +281,6 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
-
 
 
     public void setPermissionCallback(PermissionStorageCallbackListener listener) {
@@ -323,11 +324,11 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
     @Override
     public void onPermissionsGranted(int requestCode, List<String> list) {
-        if(list.contains(Manifest.permission.ACCESS_COARSE_LOCATION) || list.contains(Manifest.permission.ACCESS_FINE_LOCATION)){
-            if(locationListener!=null)
+        if (list.contains(Manifest.permission.ACCESS_COARSE_LOCATION) || list.contains(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            if (locationListener != null)
                 locationListener.onPermissionGranted();
-        }else if(list.contains(Manifest.permission.READ_EXTERNAL_STORAGE)){
-            if(storageListener!=null){
+        } else if (list.contains(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (storageListener != null) {
                 storageListener.onPermissionGranted();
             }
         }
@@ -337,11 +338,11 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
     @Override
     public void onPermissionsDenied(int requestCode, List<String> list) {
-        if(list.contains(Manifest.permission.ACCESS_COARSE_LOCATION) || list.contains(Manifest.permission.ACCESS_FINE_LOCATION)){
-            if(locationListener!=null)
+        if (list.contains(Manifest.permission.ACCESS_COARSE_LOCATION) || list.contains(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            if (locationListener != null)
                 locationListener.onPermissionDenied();
-        }else if(list.contains(Manifest.permission.READ_EXTERNAL_STORAGE)){
-            if(storageListener!=null){
+        } else if (list.contains(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (storageListener != null) {
                 storageListener.onPermissionGranted();
             }
         }
@@ -513,7 +514,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     }
 
     private void startLoginActivity() {
-        startActivity(new Intent(this,LoginActivity.class));
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
     public void showRequestDetail(RequestStatusModel model) {
@@ -603,6 +604,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
         void onPermissionDenied();
     }
+
     public interface PermissionStorageCallbackListener {
         void onPermissionGranted();
 

@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import io.reactivex.annotations.NonNull;
 import itg8.com.labtestingapp.MainActivity;
 import itg8.com.labtestingapp.R;
 import itg8.com.labtestingapp.RequestFinalListener;
@@ -71,7 +72,7 @@ public class TypeFragment extends Fragment {
     boolean isPick;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_type, container, false);

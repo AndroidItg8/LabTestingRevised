@@ -7,9 +7,14 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
+import itg8.com.labtestingapp.db.tables.Test;
+import itg8.com.labtestingapp.lab.model.LabModel;
 import itg8.com.labtestingapp.req_status.model.RequestStatusModel;
+import itg8.com.labtestingapp.request.model.RequestModel;
+import itg8.com.labtestingapp.request.model.RequestServerModel;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -48,7 +53,7 @@ public interface RetroController {
 
     @FormUrlEncoded
     @POST("jsons_login")
-    Observable<ResponseBody> login(@Field("User[username]") String username,@Field("User[password]") String password);
+    Observable<ResponseBody> login(@Field("User[username]") String username, @Field("User[password]") String password);
 
     @Multipart
     @POST("Requestuploadmasters/uploadfile")
@@ -58,7 +63,7 @@ public interface RetroController {
     @GET("getsubadminlist")
     Observable<ResponseBody> downloadSubAdmin();
 
-//    Requestmaster[user_id]:20
+    //    Requestmaster[user_id]:20
 //    Requestmaster[citymaster_id]:124
 //    RequestmastersTestmaster[0][testmaster_id]:1
 //    Requestmaster[address]:Nagpur gayatri namgar
@@ -73,17 +78,17 @@ public interface RetroController {
     @POST("Requestmasters/add")
     Observable<ResponseBody> saveRequest(@Field("Requestmaster[user_id]") String userID,
                                          @Field("Requestmaster[citymaster_id]") String city,
-                                         @FieldMap Map<String,Integer> testList,
-                                         @FieldMap Map<String,Integer> quantity,
-                                         @FieldMap Map<String,Float> totalAmountForProduct,
-                                        @Field("Requestmaster[address]") String address,
+                                         @FieldMap Map<String, Integer> testList,
+                                         @FieldMap Map<String, Integer> quantity,
+                                         @FieldMap Map<String, Float> totalAmountForProduct,
+                                         @Field("Requestmaster[address]") String address,
                                          @Field("Requestmaster[pincode]") String pincode,
                                          @Field("Requestmaster[pickstatus]") int pickStatus,
                                          @Field("Requestmaster[sybadminid]") int adminID,
                                          @Field("Requestuploadmaster[0][filename]") String fileName,
                                          @Field("Requestmaster[totalamount]") String totalAmt,
                                          @Field("Requestmaster[pickupamount]") float pickAmount
-                                         );
+    );
 
     @GET("Requestmasters/myrequest")
     Observable<List<RequestStatusModel>> getAllRequests(@Query("user_id") String userID);
@@ -95,7 +100,7 @@ public interface RetroController {
                                          @Field("Feedbackmaster[point]") int point,
                                          @Field("Feedbackmaster[feedbackcategorymaster_id]") String queID);
 
-//    Callbackmaster[user_id]:2
+    //    Callbackmaster[user_id]:2
 //    Callbackmaster[categorymaster_id]:10
 ////Callbackmaster[from]:2
 //    Questionanswermaster[0][questionmaster_id]:5
@@ -104,9 +109,8 @@ public interface RetroController {
     @POST("Callbackmasters/callbackappadd")
     Observable<ResponseBody> sendRequest(@Field("Callbackmaster[user_id]") String userID,
                                          @Field("Callbackmaster[categorymaster_id]") int id,
-                                         @FieldMap Map<String,Integer> questions,
-                                         @FieldMap  Map<String,String> answers);
-
+                                         @FieldMap Map<String, Integer> questions,
+                                         @FieldMap Map<String, String> answers);
 
 
     @GET("Feedbackcategorymasters/categorylist")
@@ -117,4 +121,31 @@ public interface RetroController {
 
     @GET("Citymasters/getcitylist")
     Observable<ResponseBody> downloadCities(@Query("stateid") String id);
+
+    /**
+     * {
+     *     "state_id": 23,
+     *     "city_id": 2716,
+     *     "user_id": 43,
+     *     "Test": [
+     *         {
+     *             "testid": 1,
+     *             "qty": 2
+     *         },
+     *         {
+     *             "testid": 4,
+     *             "qty": 2
+     *         },
+     *         {
+     *             "testid": 8,
+     *             "qty": 2
+     *         }
+     *     ]
+     * }
+     *
+     */
+
+    @POST("Requestmasters/requestprice")
+    Observable<List<LabModel>> postRequestTOServer(@Body RequestServerModel serverModel);
+
 }

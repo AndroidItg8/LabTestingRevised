@@ -2,8 +2,7 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -23,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/crdContent"
             android:layout_marginLeft="@dimen/margin_horizontal"
+            android:layout_marginBottom="@dimen/_8sdp"
             android:layout_marginRight="@dimen/margin_horizontal"
             android:orientation="horizontal">
 
@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/bg_rdo"
+                android:background="@drawable/bg_left_rdo"
                 android:button="@android:color/transparent"
                 android:onClick="@{loginModel::onRegViewClick}"
                 android:gravity="center_horizontal"
@@ -124,6 +124,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/inputPassword"
+                        android:visibility="gone"
                         android:layout_marginTop="@dimen/margin_48dp">
 
                         <ImageView

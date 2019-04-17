@@ -29,6 +29,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
                     android:text="Type of survey to be conducted"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_12sdp" />
@@ -39,6 +40,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_14sdp"
                     android:text="@{survey.surveyTypeList[0]}"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
                     app:dataToSet="@{survey.checkedVal}"
                     app:values="@{survey.surveyTypeList[0]}" />
 
@@ -47,6 +52,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_14sdp"
                     android:text="@{survey.surveyTypeList[1]}"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
                     app:dataToSet="@{survey.checkedVal}"
                     app:values="@{survey.surveyTypeList[1]}" />
 
@@ -55,6 +64,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_14sdp"
                     android:text="@{survey.surveyTypeList[2]}"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
                     app:dataToSet="@{survey.checkedVal}"
                     app:values="@{survey.surveyTypeList[2]}" />
 
@@ -63,6 +76,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_14sdp"
                     android:text="@{survey.surveyTypeList[3]}"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
                     app:dataToSet="@{survey.checkedVal}"
                     app:values="@{survey.surveyTypeList[3]}" />
 
@@ -71,12 +88,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_14sdp"
                     android:text="@{survey.surveyTypeList[4]}"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
                     app:dataToSet="@{survey.checkedVal}"
                     app:values="@{survey.surveyTypeList[4]}" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
                     android:text="@{survey.surveyErr}"/>
 
                 <TextView
@@ -84,6 +109,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:text="Area to be Surveyed"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_12sdp" />
 
@@ -92,6 +121,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_2sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
                     app:error="@{survey.areaErr}">
 
                     <android.support.design.widget.TextInputEditText
@@ -109,6 +142,10 @@
                     android:layout_height="wrap_content"
                     android:text="Location of site to be tested"
                     android:textColor="@color/colorPrimary"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
                     android:textSize="@dimen/_12sdp" />
 
                 <android.support.design.widget.TextInputLayout
@@ -116,6 +153,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_2sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
                     app:error="@{survey.locationErr}">
 
                     <android.support.design.widget.TextInputEditText
@@ -131,12 +172,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Any other requirements"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_12sdp" />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_2sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     >
@@ -189,6 +238,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
                     android:text="(For detailed enquiry and quotation)" />
 
                 <!--//    Q5) -->

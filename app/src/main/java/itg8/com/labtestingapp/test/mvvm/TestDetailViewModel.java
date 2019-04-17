@@ -21,7 +21,6 @@ public class TestDetailViewModel extends BaseObservable {
     }
 
     public void onTestIncrease() {
-
         if (test.getItemCartSize() < 30) {
             test.setItemCartSize(test.getItemCartSize() + 1);
             MyApplication.getInstance().addTestInCart(test);
