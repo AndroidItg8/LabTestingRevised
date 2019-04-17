@@ -3,13 +3,10 @@ package itg8.com.labtestingapp.common.htmlparser;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.text.Html;
 import android.view.View;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
+
 
 public class URLImageParser implements Html.ImageGetter {
     Context c;

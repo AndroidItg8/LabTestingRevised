@@ -9,16 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.MenuItem;
-import android.view.View;
 import android.webkit.WebView;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import itg8.com.labtestingapp.R;
 import itg8.com.labtestingapp.common.CommonMethod;
 import itg8.com.labtestingapp.common.MyApplication;
-import itg8.com.labtestingapp.common.htmlparser.URLImageParser;
 import itg8.com.labtestingapp.databinding.ActivityTestDetailBinding;
 import itg8.com.labtestingapp.db.tables.Test;
 import itg8.com.labtestingapp.test.mvvm.TestDetailViewModel;

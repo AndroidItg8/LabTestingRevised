@@ -55,6 +55,7 @@ public class SubCategoryViewModel extends BaseObservable implements ViewModel<Su
             Picasso.get()
                     .load(imageUrlFull)
                     .networkPolicy(NetworkPolicy.OFFLINE)
+                    .error(R.drawable.pickup)
                     .into(view, new Callback() {
                         @Override
                         public void onSuccess() {

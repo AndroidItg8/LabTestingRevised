@@ -66,6 +66,7 @@ public class CategoryViewModel extends BaseObservable implements ViewModel<MainC
         if(imageUrl!=null) {
             Picasso.get()
                     .load(imageUrlFull)
+                    .error(R.drawable.pickup)
 
                     .networkPolicy(NetworkPolicy.OFFLINE)
 

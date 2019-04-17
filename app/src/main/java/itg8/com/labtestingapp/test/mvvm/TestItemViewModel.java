@@ -78,6 +78,7 @@ public class TestItemViewModel extends BaseObservable implements itg8.com.labtes
         if(imageUrl!=null) {
             Picasso.get()
                     .load(imageUrlFull)
+                    .error(R.drawable.pickup)
                     .networkPolicy(NetworkPolicy.OFFLINE)
                     .into(view, new Callback() {
                         @Override

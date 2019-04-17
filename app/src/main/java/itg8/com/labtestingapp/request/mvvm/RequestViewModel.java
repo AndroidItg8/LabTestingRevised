@@ -83,7 +83,8 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
     public SpinnerItemSelect.OnItemSelectListener cityListener = new SpinnerItemSelect.OnItemSelectListener() {
         @Override
         public void onItemSelect(String id) {
-            downloadCitites(id);
+        requestModel.setState(Integer.parseInt(id));
+        downloadCitites(id);
         }
     };
 
@@ -315,8 +316,7 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
     public static void bindSpinnerAdapter(Spinner spinner, ObservableList<SpinnerGenericModel> allContriesObs, RequestModel model, SpinnerItemSelect.OnItemSelectListener listener) {
         spinner.setAdapter(new GenericSpinnerAdapter(spinner.getContext(), allContriesObs));
         SpinnerItemSelect itemDate = new SpinnerItemSelect(model, "CountryCode");
-      //Change Now...
-        itemDate.setOnItemAvailListener(id -> model.setState(Integer.parseInt(id)));
+
         spinner.setOnItemSelectedListener(itemDate);
         itemDate.setOnItemAvailListener(listener);
 
