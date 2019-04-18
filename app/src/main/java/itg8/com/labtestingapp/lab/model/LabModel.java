@@ -1,10 +1,14 @@
 package itg8.com.labtestingapp.lab.model;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LabModel implements Parcelable
+import itg8.com.labtestingapp.BR;
+
+public class LabModel extends BaseObservable implements Parcelable
 {
 
     @SerializedName("id")
@@ -70,12 +74,14 @@ public class LabModel implements Parcelable
         this.companyname = companyname;
     }
 
+
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+
     }
 
     public Integer getTotalamountWithouttax() {

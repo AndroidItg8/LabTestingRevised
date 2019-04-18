@@ -35,6 +35,7 @@ import itg8.com.labtestingapp.MainActivity;
 import itg8.com.labtestingapp.R;
 import itg8.com.labtestingapp.common.CommonMethod;
 import itg8.com.labtestingapp.common.GenericSpinnerAdapter;
+import itg8.com.labtestingapp.common.GlobalViewModel;
 import itg8.com.labtestingapp.common.LatLng;
 import itg8.com.labtestingapp.common.MyApplication;
 import itg8.com.labtestingapp.common.NetworkCall;
@@ -43,15 +44,14 @@ import itg8.com.labtestingapp.common.Prefs;
 import itg8.com.labtestingapp.common.SpinnerGenericModel;
 import itg8.com.labtestingapp.common.SpinnerItemSelect;
 import itg8.com.labtestingapp.db.repository.CityRepository;
-import itg8.com.labtestingapp.db.repository.StateRepository;
 import itg8.com.labtestingapp.db.tables.City;
 import itg8.com.labtestingapp.db.tables.State;
-import itg8.com.labtestingapp.db.tables.SubAdmin;
 import itg8.com.labtestingapp.db.tables.Test;
 import itg8.com.labtestingapp.lab.LabFragment;
 import itg8.com.labtestingapp.lab.model.LabModel;
-import itg8.com.labtestingapp.rating.model.QuestionController;
-import itg8.com.labtestingapp.req_status.model.RequestStatusModel;
+
+import itg8.com.labtestingapp.lab.mvvm.LabItemViewModel;
+import itg8.com.labtestingapp.lab.mvvm.LabViewModel;
 import itg8.com.labtestingapp.request.model.RequestModel;
 import itg8.com.labtestingapp.request.model.RequestServerModel;
 import itg8.com.labtestingapp.splash.mvvm.StateCityController;
@@ -67,17 +67,20 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
 
     private Context context;
     private RequestModel requestModel;
+    public LabItemViewModel model;
+
 
     public ObservableList<SpinnerGenericModel> states;
     public ObservableBoolean progress;
     public ObservableBoolean button;
+    public ObservableBoolean isBranch;
     public static ObservableList<SpinnerGenericModel> cities;
     private boolean hasPermission = false;
     private String googleKey;
     private Disposable d;
     private LatLng latLng;
     static Fragment fragment;
-    Application application;
+
 
 
     public SpinnerItemSelect.OnItemSelectListener cityListener = new SpinnerItemSelect.OnItemSelectListener() {
@@ -90,11 +93,11 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
 
 
     public RequestViewModel(Application context, Fragment fragment) {
-        this.application = context;
         this.context = fragment.getContext();
         this.fragment = fragment;
         progress = new ObservableBoolean(false);
         requestModel = new RequestModel();
+        isBranch = new ObservableBoolean(false);
         states = new ObservableArrayList<>();
         cities = new ObservableArrayList<>();
         googleKey = context.getString(R.string.app_google_key);
@@ -242,6 +245,7 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
     }
 
     public void onNextClicked(View view) {
+        if(!isBranch.get()){
         if (requestModel.validate()) {
             //  ((MainActivity) context).fileRequestFragment(requestModel);
             if (MyApplication.getInstance().getCartTest() != null && MyApplication.getInstance().getCartTest().size() > 0) {
@@ -250,24 +254,20 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
                 model.setCityId(requestModel.getCity());
                 model.setStateId(requestModel.getState());
                 model.setUserId(Integer.parseInt(Prefs.getString(CommonMethod.USERID)));
-                List<Test> list = MyApplication.getInstance().getCartTest();
-                Log.d(TAG, "onNextClicked: list"+new Gson().toJson(list));
-               List<RequestServerModel.CardTest> cardTests= new ArrayList<>();
-                for (Test test :list
-                     ) {
+                List<RequestServerModel.CardTest> cardTests = new ArrayList<>();
+                for (Test test : MyApplication.getInstance().getCartTest()) {
                     RequestServerModel.CardTest cardTest = new RequestServerModel.CardTest();
                     cardTest.setTestId(test.id);
                     cardTest.setQty(test.getItemCartSize());
                     cardTests.add(cardTest);
-
                 }
                 model.setTest(cardTests);
-                Log.d(TAG, "onNextClicked: "+new Gson().toJson(model));
-
-               // sedRequestDataToServer(model);
-
+                Log.d(TAG, "onNextClicked: " + new Gson().toJson(model));
+                sedRequestDataToServer(model);
             }
-
+        }
+        }else{
+            Log.d(TAG, "onNextClicked: else part");
 
         }
     }
@@ -288,8 +288,14 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
 
     }
 
+
+
     private void callFragment(List<LabModel> labModelList) {
-        ((MainActivity) this.context).startFragment(LabFragment.newInstance(labModelList));
+         if(labModelList.size()==1){
+             setLabModel(labModelList.get(0));
+         }else {
+             ((MainActivity) this.context).startFragment(LabFragment.newInstance(labModelList));
+         }
 
     }
 
@@ -361,5 +367,16 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
     @Override
     public void onPermissionDenied() {
         hasPermission = false;
+    }
+
+
+    public void setLabModel(LabModel labModel) {
+        if(labModel!=null){
+             isBranch.set(true);
+            progress.set(false);
+
+
+        }
+
     }
 }

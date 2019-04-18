@@ -69,6 +69,7 @@ public class GenericAdapter<T extends BaseObservable,V extends ViewModel> extend
 
     }
 
+
     public interface OnItemClickListner extends BaseClickListner{
 
     }

@@ -48,6 +48,7 @@ import io.reactivex.schedulers.Schedulers;
 import itg8.com.labtestingapp.cart.CartFragment;
 import itg8.com.labtestingapp.common.BaseActivity;
 import itg8.com.labtestingapp.common.CommonMethod;
+import itg8.com.labtestingapp.common.GlobalViewModel;
 import itg8.com.labtestingapp.common.MyApplication;
 import itg8.com.labtestingapp.common.NetworkCall;
 import itg8.com.labtestingapp.common.Prefs;
@@ -57,6 +58,9 @@ import itg8.com.labtestingapp.db.tables.SubCategory;
 import itg8.com.labtestingapp.db.tables.Test;
 import itg8.com.labtestingapp.geotechnical.GeoTechnicalFragment;
 import itg8.com.labtestingapp.home.HomeFragment;
+import itg8.com.labtestingapp.lab.LabFragment;
+import itg8.com.labtestingapp.lab.LabSelectionListener;
+import itg8.com.labtestingapp.lab.model.LabModel;
 import itg8.com.labtestingapp.login.LoginActivity;
 import itg8.com.labtestingapp.login.LoginFragment;
 import itg8.com.labtestingapp.ndt.NDTFragment;
@@ -102,6 +106,9 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     private ArrayList<String> ans;
     private PermissionLocationCallbackListener locationListener;
     private PermissionStorageCallbackListener storageListener;
+    private LabSelectionListener labSelectedListner;
+    private GlobalViewModel viewModel;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
 
 
     @Override
@@ -122,7 +129,14 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         repository = ViewModelProviders.of(this).get(SubCategoryRepository.class);
 
         fm = getSupportFragmentManager();
+
+        createGlobalViewModel();
         initMenus();
+    }
+
+    private void createGlobalViewModel() {
+        viewModel = ViewModelProviders.of(this)
+                .get(GlobalViewModel.class);
     }
 
     @Override
@@ -156,7 +170,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
                     }
                 });
 
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.openDrawer, R.string.closeDrawer) {
+       actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.openDrawer, R.string.closeDrawer) {
 
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -200,7 +214,6 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     }
 
 
-
     private void updateApp() {
         Prefs.remove(CommonMethod.ALL_SET_UP);
         startActivity(new Intent(this, SplashActivity.class));
@@ -212,7 +225,6 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     }
 
     public void openRequestStatusFragment() {
-
         if (Prefs.contains(CommonMethod.USERID)) {
             startFragment(RequestStatusFragment.newInstance());
         } else {
@@ -445,6 +457,15 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         } else if (item.getItemId() == R.id.action_logout) {
             removeLogout();
         }
+
+//        if (actionBarDrawerToggle.isDrawerIndicatorEnabled()
+//                && actionBarDrawerToggle.onOptionsItemSelected(item))
+//            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+              onBackPressed();
+                return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -597,6 +618,21 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
     public void carryOnRequest() {
 
+    }
+
+    public void selectedLabBranch(LabModel o) {
+        if (o!=null) {
+            onBackPressed();
+            viewModel.setLabModel(o);
+            labSelectedListner.onLabSelected(o);
+
+
+        }
+
+    }
+
+    public void setLabSelectedListner(LabSelectionListener labSelectedListner) {
+        this.labSelectedListner = labSelectedListner;
     }
 
     public interface PermissionLocationCallbackListener {

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import io.reactivex.annotations.NonNull;
 import itg8.com.labtestingapp.R;
 import itg8.com.labtestingapp.databinding.FragmentRatingBinding;
 import itg8.com.labtestingapp.rating.mvvm.RatingViewModel;
@@ -62,7 +63,7 @@ public class RatingFragment extends Fragment {
     FragmentRatingBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding= DataBindingUtil.inflate(inflater,R.layout.fragment_rating, container, false);

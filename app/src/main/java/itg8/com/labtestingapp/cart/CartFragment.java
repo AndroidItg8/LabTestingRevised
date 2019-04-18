@@ -4,6 +4,7 @@ package itg8.com.labtestingapp.cart;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +78,11 @@ public class CartFragment extends Fragment {
         binding.setCartModel(model);
     }
 
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        ActionBar actionBar = ((MainActivity)getActivity()).getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+    }
 }

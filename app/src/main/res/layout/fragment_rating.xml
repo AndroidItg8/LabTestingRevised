@@ -48,6 +48,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Select Question"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
             android:layout_below="@+id/ratingBar"
             android:layout_marginTop="@dimen/_16sdp"
             />
@@ -57,7 +61,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblTitle"
+            android:background="@drawable/bg_spinner"
             app:customEntriesQue="@{ratingModel.allQue}"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
             app:customEntriesQueModel="@{ratingModel.model}"
             android:layout_marginTop="@dimen/_16sdp" />
 
@@ -68,6 +77,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_32dp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
             app:error="@{ratingModel.model.descriptionErr}"
             android:layout_below="@+id/spnrQuestion"
             >
@@ -89,6 +102,11 @@
             android:layout_centerHorizontal="true"
             android:background="@color/colorPrimary"
             android:textColor="@color/white"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_16sdp"
             android:onClick="@{ratingModel::submitClick}"
             android:text="Submit"
             android:layout_marginBottom="24dp"/>

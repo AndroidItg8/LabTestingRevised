@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="position"
+            type="Integer"/>
+        <variable
+            name="model"
+            type="itg8.com.labtestingapp.lab.mvvm.LabItemViewModel" />
+        <variable
+            name="rawmodel"
+            type="itg8.com.labtestingapp.lab.model.LabModel" />
+    </data>
+
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_8sdp"
+    app:cardPreventCornerOverlap="true"
+    android:onClick="@{()->model.onItemClicked(position,rawmodel)}"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_4sdp">
+
+
+        <TextView
+            android:id="@+id/lbl_companyName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="Company Name"
+            android:textColor="@color/black_overlay"
+            android:textSize="@dimen/_10sdp" />
+
+        <TextView
+            android:id="@+id/txt_cgst"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:textAllCaps="false"
+            android:background="@color/black"
+            android:padding="@dimen/_4sdp"
+            android:text="@{model.model.taxtype}"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp"
+            android:layout_alignParentRight="true" />
+
+        <TextView
+            android:id="@+id/txt_companyName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lbl_companyName"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:textAllCaps="false"
+            android:text="@{model.model.companyname}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp" />
+
+        <TextView
+            android:id="@+id/lbl_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_companyName"
+            android:text="Address"
+            android:textAllCaps="false"
+            android:textColor="@color/black_overlay"
+            android:textSize="@dimen/_10sdp" />
+
+        <TextView
+            android:id="@+id/txt_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lbl_address"
+            android:textAllCaps="false"
+            android:maxLines="2"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:lines="2"
+            android:text="@{model.model.address}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_address"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:background="@drawable/bg_border"
+            android:weightSum="2">
+
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_2sdp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/black_overlay"
+                    android:layout_marginEnd="@dimen/_1sdp"
+                    android:text="@string/Rs"
+                    android:layout_toStartOf="@+id/txt_taxAmountWithoutTax"
+                    android:layout_marginRight="@dimen/_1sdp"
+                    android:layout_toLeftOf="@+id/txt_taxAmountWithoutTax" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(model.model.totalamountWithouttax)}"
+                    android:id="@+id/txt_taxAmountWithoutTax"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tax Amount"
+                    android:id="@+id/lbl_taxAmountWithoutTax"
+                    android:layout_below="@+id/txt_taxAmountWithoutTax"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/black_overlay"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/_10sdp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/black_overlay"/>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_2sdp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/black_overlay"
+                    android:layout_marginEnd="@dimen/_1sdp"
+                    android:text="@string/Rs"
+                    android:layout_toStartOf="@+id/txt_taxAmount"
+                    android:layout_marginRight="@dimen/_1sdp"
+                    android:layout_toLeftOf="@+id/txt_taxAmount" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(model.model.taxamount)}"
+                    android:id="@+id/txt_taxAmount"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Amount Without Tax"
+                    android:id="@+id/lbl_taxAmount"
+                    android:layout_below="@+id/txt_taxAmount"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/black_overlay"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/_10sdp" />
+
+
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+</layout>

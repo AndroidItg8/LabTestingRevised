@@ -183,7 +183,8 @@ public class LoginViewModel extends BaseObservable {
                                 }
                             }
                         }
-                    }, Throwable::printStackTrace);
+                    },throwable -> {errorLogin(view);});
+                            //t-> {errorLogin(view);});
         }
     }
 

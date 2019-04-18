@@ -40,6 +40,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import itg8.com.labtestingapp.R;
+import itg8.com.labtestingapp.lab.model.LabModel;
 import okhttp3.ResponseBody;
 
 public abstract class BaseActivity extends AppCompatActivity {
