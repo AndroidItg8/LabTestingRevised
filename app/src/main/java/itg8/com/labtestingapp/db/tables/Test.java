@@ -8,10 +8,8 @@ import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.Date;
 import itg8.com.labtestingapp.BR;
+
 
 @Entity
 public class Test  extends BaseObservable implements Parcelable {

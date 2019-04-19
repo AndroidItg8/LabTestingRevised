@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import itg8.com.labtestingapp.R;
+import itg8.com.labtestingapp.common.BaseFragment;
 import itg8.com.labtestingapp.databinding.FragmentSubCategoryBinding;
 import itg8.com.labtestingapp.subcategory.mvvm.SubCatViewModel;
 
@@ -17,7 +18,7 @@ import itg8.com.labtestingapp.subcategory.mvvm.SubCatViewModel;
  * Use the {@link SubCategoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SubCategoryFragment extends Fragment {
+public class SubCategoryFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
