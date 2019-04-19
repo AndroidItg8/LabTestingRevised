@@ -16,6 +16,7 @@ import io.reactivex.annotations.NonNull;
 import itg8.com.labtestingapp.MainActivity;
 import itg8.com.labtestingapp.R;
 import itg8.com.labtestingapp.RequestFinalListener;
+import itg8.com.labtestingapp.common.BaseFragment;
 import itg8.com.labtestingapp.common.UtilSnackbar;
 
 /**
@@ -23,7 +24,7 @@ import itg8.com.labtestingapp.common.UtilSnackbar;
  * Use the {@link TypeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TypeFragment extends Fragment {
+public class TypeFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";

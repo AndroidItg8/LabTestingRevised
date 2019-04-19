@@ -284,7 +284,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 user.getEmail(),
                 fName, lName,
                 user.getEmail(),
-                user.getUid(),user.getUid(), "",1,user.getUid());
+                user.getUid(),user.getUid(), "",0,0,2);
         Disposable d=observable.flatMap(new Function<ResponseBody, ObservableSource<?>>() {
             @Override
             public ObservableSource<?> apply(ResponseBody responseBody) throws Exception {

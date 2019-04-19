@@ -20,6 +20,7 @@ import java.util.List;
 
 import itg8.com.labtestingapp.MainActivity;
 import itg8.com.labtestingapp.R;
+import itg8.com.labtestingapp.common.BaseFragment;
 import itg8.com.labtestingapp.databinding.FragmentLabBinding;
 import itg8.com.labtestingapp.db.tables.MainCategory;
 import itg8.com.labtestingapp.home.mvvm.HomeViewModel;
@@ -31,7 +32,7 @@ import itg8.com.labtestingapp.lab.mvvm.LabViewModel;
  * Use the {@link LabFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LabFragment extends Fragment  {
+public class LabFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";

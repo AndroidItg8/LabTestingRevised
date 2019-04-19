@@ -39,6 +39,22 @@ public interface RetroController {
 //    User[referenceby]:
 //    User[registerby]:1
 //    User[authkey]:hjhuy6456567586ygsdfg
+
+
+
+
+//    User[first_name] :Rajesh
+//    User[last_name] :Rao
+//    User[username] :8087890177
+//    User[email] :aakas1h@gmail.com
+
+//    User[statemaster_id] :23
+//    User[citymaster_id] :2716
+//
+// User[password] :123456
+//    User[referenceby] :TCS_4563
+//    User[user_group_id] :2
+//    //User[cpassword] :123456
     @FormUrlEncoded
     @POST("appregister")
     Observable<ResponseBody> postRegister(@Field("User[username]") String mobile,
@@ -48,8 +64,9 @@ public interface RetroController {
                                           @Field("User[password]") String password,
                                           @Field("User[cpassword]") String cpassword,
                                           @Field("User[referenceby]") String referal,
-                                          @Field("User[registerby]") int type,
-                                          @Field("User[authkey]") String authKey);
+                                          @Field("User[statemaster_id]") int stateId,
+                                          @Field("User[citymaster_id]") int cityId,
+                                          @Field("User[user_group_id]") int type);
 
     @FormUrlEncoded
     @POST("jsons_login")

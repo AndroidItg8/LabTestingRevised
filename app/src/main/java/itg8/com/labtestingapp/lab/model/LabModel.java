@@ -66,21 +66,27 @@ public class LabModel extends BaseObservable implements Parcelable
         this.id = id;
     }
 
+    @Bindable
     public String getCompanyname() {
         return companyname;
     }
 
     public void setCompanyname(String companyname) {
         this.companyname = companyname;
+        notifyPropertyChanged(BR.companyname);
     }
 
-
+    @Bindable
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+        notifyPropertyChanged(BR.address);
+
+
+
 
     }
 

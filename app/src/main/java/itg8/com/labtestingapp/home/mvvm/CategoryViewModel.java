@@ -2,13 +2,9 @@ package itg8.com.labtestingapp.home.mvvm;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
-import android.databinding.Observable;
-import android.databinding.ObservableField;
-import android.net.Uri;
+
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Callback;
@@ -28,12 +24,12 @@ public class CategoryViewModel extends BaseObservable implements ViewModel<MainC
     private static final String TAG = "CategoryViewModel";
 
     private final Context context;
-    private  static File directory;
+    private static File directory;
     private GenericAdapter.OnItemClickListner listner;
     public MainCategory model;
 
     public CategoryViewModel(Context context) {
-        this.context=context;
+        this.context = context;
         directory = context.getCacheDir();
 
     }
@@ -50,26 +46,25 @@ public class CategoryViewModel extends BaseObservable implements ViewModel<MainC
 
     @Override
     public void setModel(MainCategory category) {
-        this.model=category;
+        this.model = category;
     }
 
-    public void onImageClick(int position, MainCategory category){
-        if(listner!=null)
+    public void onImageClick(int position, MainCategory category) {
+        if (listner != null)
             listner.onItemClicked(category);
     }
 
     @BindingAdapter({"imageUrl"})
     public static void loadImage(ImageView view, String imageUrl) {
-        final  String imageUrlFull=CommonMethod.IMAGE_URL+imageUrl;
-        Log.d(TAG, "loadImage: "+imageUrlFull);
+        final String imageUrlFull = CommonMethod.IMAGE_URL + imageUrl;
+        Log.d(TAG, "loadImage: " + imageUrlFull);
 
-        if(imageUrl!=null) {
+        if (imageUrl != null) {
             Picasso.get()
                     .load(imageUrlFull)
                     .error(R.drawable.pickup)
-
+                    .placeholder(R.drawable.pickup)
                     .networkPolicy(NetworkPolicy.OFFLINE)
-
                     .into(view, new Callback() {
                         @Override
                         public void onSuccess() {
@@ -81,6 +76,8 @@ public class CategoryViewModel extends BaseObservable implements ViewModel<MainC
                             e.printStackTrace();
                             Picasso.get()
                                     .load(imageUrlFull)
+                                    .placeholder(R.drawable.pickup)
+                                    .error(R.drawable.pickup)
                                     .into(view);
                         }
                     });
@@ -92,11 +89,10 @@ public class CategoryViewModel extends BaseObservable implements ViewModel<MainC
 //            listner.onItemClicked(this.model);
 //    }
 
-    public void onItemClicked(final MainCategory model){
-        if(listner!=null)
+    public void onItemClicked(final MainCategory model) {
+        if (listner != null)
             listner.onItemClicked(model);
     }
-
 
 
 }

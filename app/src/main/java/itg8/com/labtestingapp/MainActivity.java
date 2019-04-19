@@ -4,6 +4,7 @@ import android.Manifest;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.ObservableList;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.support.annotation.NonNull;
@@ -19,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,10 +54,12 @@ import itg8.com.labtestingapp.common.GlobalViewModel;
 import itg8.com.labtestingapp.common.MyApplication;
 import itg8.com.labtestingapp.common.NetworkCall;
 import itg8.com.labtestingapp.common.Prefs;
+import itg8.com.labtestingapp.common.SpinnerGenericModel;
 import itg8.com.labtestingapp.db.repository.SubCategoryRepository;
 import itg8.com.labtestingapp.db.tables.MainCategory;
 import itg8.com.labtestingapp.db.tables.SubCategory;
 import itg8.com.labtestingapp.db.tables.Test;
+import itg8.com.labtestingapp.geotechnical.CustomDialogueFragment;
 import itg8.com.labtestingapp.geotechnical.GeoTechnicalFragment;
 import itg8.com.labtestingapp.home.HomeFragment;
 import itg8.com.labtestingapp.lab.LabFragment;
@@ -82,7 +86,7 @@ import okhttp3.ResponseBody;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class MainActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
+public class MainActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks, FragmentManager.OnBackStackChangedListener {
 
     private static final int RC_EXTERNAL_STORAGE = 1022;
     private static final int RC_LOCATION = 1023;
@@ -107,8 +111,9 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     private PermissionLocationCallbackListener locationListener;
     private PermissionStorageCallbackListener storageListener;
     private LabSelectionListener labSelectedListner;
-    private GlobalViewModel viewModel;
+    public GlobalViewModel viewModel;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private static final String TAG = "MainActivity";
 
 
     @Override
@@ -123,7 +128,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
             this.finish();
             return;
         }
-
+        getSupportFragmentManager().addOnBackStackChangedListener(this);
         initNavigation();
 
         repository = ViewModelProviders.of(this).get(SubCategoryRepository.class);
@@ -137,6 +142,9 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     private void createGlobalViewModel() {
         viewModel = ViewModelProviders.of(this)
                 .get(GlobalViewModel.class);
+    }
+    public GlobalViewModel getViewModel(){
+        return viewModel;
     }
 
     @Override
@@ -193,10 +201,21 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
     @Override
     public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawers();
-            return;
-        }
+//           if(getSupportFragmentManager().getBackStackEntryCount()>0) {
+//               super.onBackPressed();
+//           }else {
+//               if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+//                   mDrawerLayout.closeDrawers();
+//                   return;
+//               }
+//           }
+//        if(getSupportFragmentManager().getBackStackEntryCount()>0)
+//            getSupportFragmentManager().popBackStack();
+//        else{
+//            if (mDrawerLayout.isDrawerOpen(GravityCompat.START))
+//                mDrawerLayout.closeDrawers();
+//        }
+
         super.onBackPressed();
 
     }
@@ -457,14 +476,12 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         } else if (item.getItemId() == R.id.action_logout) {
             removeLogout();
         }
+        else if(item.getItemId()==R.id.home){
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                Log.d(TAG, "onOptionsItemSelected: "+getSupportFragmentManager().getBackStackEntryCount());
+                getSupportFragmentManager().popBackStack();
 
-//        if (actionBarDrawerToggle.isDrawerIndicatorEnabled()
-//                && actionBarDrawerToggle.onOptionsItemSelected(item))
-//            return true;
-        switch (item.getItemId()) {
-            case android.R.id.home:
-              onBackPressed();
-                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -624,7 +641,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         if (o!=null) {
             onBackPressed();
             viewModel.setLabModel(o);
-            labSelectedListner.onLabSelected(o);
+//            labSelectedListner.onLabSelected(o);
 
 
         }
@@ -634,6 +651,42 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     public void setLabSelectedListner(LabSelectionListener labSelectedListner) {
         this.labSelectedListner = labSelectedListner;
     }
+
+    @Override
+    public void onBackStackChanged() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+       actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);// show back button
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        } else {
+            //show hamburger
+            actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
+            actionBarDrawerToggle.syncState();
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mDrawerLayout.openDrawer(GravityCompat.START);
+                }
+            });
+
+        }
+
+
+
+    }
+
+    public void openDialogueFragment(ObservableList<SpinnerGenericModel> states) {
+        CustomDialogueFragment fragment = CustomDialogueFragment.newInstance(states);
+        fragment.show(fm, fragment.getTag());
+    }
+
 
     public interface PermissionLocationCallbackListener {
         void onPermissionGranted();

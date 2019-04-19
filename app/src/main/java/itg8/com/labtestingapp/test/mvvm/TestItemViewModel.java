@@ -79,6 +79,7 @@ public class TestItemViewModel extends BaseObservable implements itg8.com.labtes
             Picasso.get()
                     .load(imageUrlFull)
                     .error(R.drawable.pickup)
+                    .placeholder(R.drawable.pickup)
                     .networkPolicy(NetworkPolicy.OFFLINE)
                     .into(view, new Callback() {
                         @Override
@@ -91,6 +92,8 @@ public class TestItemViewModel extends BaseObservable implements itg8.com.labtes
                             e.printStackTrace();
                             Picasso.get()
                                     .load(imageUrlFull)
+                                    .placeholder(R.drawable.pickup)
+                                    .error(R.drawable.pickup)
                                     .into(view);
                         }
                     });

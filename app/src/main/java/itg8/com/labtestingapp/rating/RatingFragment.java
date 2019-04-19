@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import io.reactivex.annotations.NonNull;
 import itg8.com.labtestingapp.R;
+import itg8.com.labtestingapp.common.BaseFragment;
 import itg8.com.labtestingapp.databinding.FragmentRatingBinding;
 import itg8.com.labtestingapp.rating.mvvm.RatingViewModel;
 
@@ -18,7 +19,7 @@ import itg8.com.labtestingapp.rating.mvvm.RatingViewModel;
  * Use the {@link RatingFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RatingFragment extends Fragment {
+public class RatingFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";

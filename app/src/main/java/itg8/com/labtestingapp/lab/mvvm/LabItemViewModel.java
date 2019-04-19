@@ -4,7 +4,6 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
-import itg8.com.labtestingapp.BR;
 import itg8.com.labtestingapp.R;
 import itg8.com.labtestingapp.common.genericRv.GenericAdapter;
 import itg8.com.labtestingapp.common.genericRv.ViewModel;

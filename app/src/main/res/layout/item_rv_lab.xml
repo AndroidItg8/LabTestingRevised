@@ -45,9 +45,10 @@
             android:textAllCaps="false"
             android:background="@color/black"
             android:padding="@dimen/_4sdp"
-            android:text="@{model.model.taxtype}"
+            android:text="@{rawmodel.taxtype}"
             android:textColor="@color/white"
             android:textSize="@dimen/_10sdp"
+            android:visibility="gone"
             android:layout_alignParentRight="true" />
 
         <TextView
@@ -58,7 +59,7 @@
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_4sdp"
             android:textAllCaps="false"
-            android:text="@{model.model.companyname}"
+            android:text="@{rawmodel.companyname}"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp" />
 
@@ -82,7 +83,7 @@
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_4sdp"
             android:lines="2"
-            android:text="@{model.model.address}"
+            android:text="@{rawmodel.address}"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp" />
 
@@ -92,6 +93,7 @@
             android:layout_below="@+id/txt_address"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/_2sdp"
+            android:visibility="gone"
             android:background="@drawable/bg_border"
             android:weightSum="2">
 
@@ -117,7 +119,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(model.model.totalamountWithouttax)}"
+                    android:text="@{String.valueOf(rawmodel.totalamountWithouttax)}"
                     android:id="@+id/txt_taxAmountWithoutTax"
                     android:layout_centerHorizontal="true"
                     android:textColor="@color/black"
@@ -159,7 +161,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(model.model.taxamount)}"
+                    android:text="@{String.valueOf(rawmodel.taxamount)}"
                     android:id="@+id/txt_taxAmount"
                     android:layout_centerHorizontal="true"
                     android:textColor="@color/black"

@@ -8,13 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import itg8.com.labtestingapp.R;
+import itg8.com.labtestingapp.common.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link RefferalFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RefferalFragment extends Fragment {
+public class RefferalFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";

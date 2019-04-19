@@ -4,10 +4,13 @@ package itg8.com.labtestingapp.geotechnical;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import itg8.com.labtestingapp.common.BaseFragment;
 import itg8.com.labtestingapp.databinding.FragmentGeoTechnicalBinding;
 
 import itg8.com.labtestingapp.R;
@@ -18,7 +21,7 @@ import itg8.com.labtestingapp.geotechnical.mvvm.GeoTechViewModel;
  * Use the {@link GeoTechnicalFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GeoTechnicalFragment extends Fragment {
+public class GeoTechnicalFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -63,7 +66,7 @@ public class GeoTechnicalFragment extends Fragment {
     private FragmentGeoTechnicalBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull  LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding= DataBindingUtil.inflate(inflater,R.layout.fragment_geo_technical, container, false);

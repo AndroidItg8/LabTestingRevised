@@ -4,6 +4,7 @@ package itg8.com.labtestingapp.request;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import itg8.com.labtestingapp.MainActivity;
 import itg8.com.labtestingapp.R;
+import itg8.com.labtestingapp.common.BaseFragment;
 import itg8.com.labtestingapp.databinding.FragmentFileUploadBinding;
 import itg8.com.labtestingapp.request.mvvm.FileUploadViewModel;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
@@ -24,7 +26,7 @@ import pl.aprilapps.easyphotopicker.EasyImage;
  * Use the {@link FileUploadFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FileUploadFragment extends Fragment {
+public class FileUploadFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -70,7 +72,7 @@ public class FileUploadFragment extends Fragment {
     FragmentFileUploadBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding= DataBindingUtil.inflate(inflater,R.layout.fragment_file_upload, container, false);

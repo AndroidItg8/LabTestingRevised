@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import itg8.com.labtestingapp.R;
+import itg8.com.labtestingapp.common.BaseFragment;
 import itg8.com.labtestingapp.databinding.FragmentRequestStatusDetailBinding;
 import itg8.com.labtestingapp.req_status.model.RequestStatusModel;
 import itg8.com.labtestingapp.req_status.mvvm.ReqStatusDetailViewModel;
@@ -19,7 +20,7 @@ import itg8.com.labtestingapp.req_status.mvvm.RequestStatusViewModel;
  * Use the {@link RequestStatusDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RequestStatusDetailFragment extends Fragment {
+public class RequestStatusDetailFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";

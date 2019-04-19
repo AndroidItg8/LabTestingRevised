@@ -67,6 +67,8 @@ public class SubCategoryViewModel extends BaseObservable implements ViewModel<Su
                             e.printStackTrace();
                             Picasso.get()
                                     .load(imageUrlFull)
+                                    .placeholder(R.drawable.pickup)
+                                    .error(R.drawable.pickup)
                                     .into(view);
                         }
                     });

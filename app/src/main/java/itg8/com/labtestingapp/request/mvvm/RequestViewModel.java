@@ -13,9 +13,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -25,7 +28,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -35,7 +37,6 @@ import itg8.com.labtestingapp.MainActivity;
 import itg8.com.labtestingapp.R;
 import itg8.com.labtestingapp.common.CommonMethod;
 import itg8.com.labtestingapp.common.GenericSpinnerAdapter;
-import itg8.com.labtestingapp.common.GlobalViewModel;
 import itg8.com.labtestingapp.common.LatLng;
 import itg8.com.labtestingapp.common.MyApplication;
 import itg8.com.labtestingapp.common.NetworkCall;
@@ -43,6 +44,7 @@ import itg8.com.labtestingapp.common.PlaceController;
 import itg8.com.labtestingapp.common.Prefs;
 import itg8.com.labtestingapp.common.SpinnerGenericModel;
 import itg8.com.labtestingapp.common.SpinnerItemSelect;
+import itg8.com.labtestingapp.common.genericRv.GenericAdapter;
 import itg8.com.labtestingapp.db.repository.CityRepository;
 import itg8.com.labtestingapp.db.tables.City;
 import itg8.com.labtestingapp.db.tables.State;
@@ -51,10 +53,11 @@ import itg8.com.labtestingapp.lab.LabFragment;
 import itg8.com.labtestingapp.lab.model.LabModel;
 
 import itg8.com.labtestingapp.lab.mvvm.LabItemViewModel;
-import itg8.com.labtestingapp.lab.mvvm.LabViewModel;
+
 import itg8.com.labtestingapp.request.model.RequestModel;
 import itg8.com.labtestingapp.request.model.RequestServerModel;
 import itg8.com.labtestingapp.splash.mvvm.StateCityController;
+import itg8.com.labtestingapp.test.mvvm.TestItemViewModel;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -71,23 +74,27 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
 
 
     public ObservableList<SpinnerGenericModel> states;
+    public static ObservableList<SpinnerGenericModel> cities;
     public ObservableBoolean progress;
+    public ObservableBoolean isAllSet;
+    public ObservableBoolean isWorkOrder;
     public ObservableBoolean button;
     public ObservableBoolean isBranch;
-    public static ObservableList<SpinnerGenericModel> cities;
     private boolean hasPermission = false;
     private String googleKey;
     private Disposable d;
     private LatLng latLng;
     static Fragment fragment;
+    public GenericAdapter<Test, TestItemViewModel> genericAdapters;
+    public   ObservableArrayList<Test> tests;
 
 
 
     public SpinnerItemSelect.OnItemSelectListener cityListener = new SpinnerItemSelect.OnItemSelectListener() {
         @Override
         public void onItemSelect(String id) {
-        requestModel.setState(Integer.parseInt(id));
-        downloadCitites(id);
+            requestModel.setState(Integer.parseInt(id));
+            downloadCitites(id);
         }
     };
 
@@ -95,15 +102,34 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
     public RequestViewModel(Application context, Fragment fragment) {
         this.context = fragment.getContext();
         this.fragment = fragment;
+        tests = new ObservableArrayList<>();
+        generateRvContent();
+
         progress = new ObservableBoolean(false);
+        isAllSet = new ObservableBoolean(false);
+        isWorkOrder = new ObservableBoolean(false);
         requestModel = new RequestModel();
         isBranch = new ObservableBoolean(false);
         states = new ObservableArrayList<>();
         cities = new ObservableArrayList<>();
         googleKey = context.getString(R.string.app_google_key);
-        setAllStateToGenericModel();
 
+
+        setAllStateToGenericModel();
         ((MainActivity) this.context).setPermissionCallbackForLocation(this);
+    }
+
+    private void setCardsItem() {
+        tests.addAll(getCardsItem());
+        genericAdapters.notifyDataSetChanged();
+        isAllSet.set(true);
+    }
+
+    private List<Test> getCardsItem() {
+        if (MyApplication.getInstance().getCartTest() != null)
+            return MyApplication.getInstance().getCartTest();
+        else
+            return null;
     }
 
 
@@ -241,32 +267,32 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
 
 
     private void showError(Throwable throwable) {
-
+        Toast.makeText(context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
     public void onNextClicked(View view) {
-        if(!isBranch.get()){
-        if (requestModel.validate()) {
-            //  ((MainActivity) context).fileRequestFragment(requestModel);
-            if (MyApplication.getInstance().getCartTest() != null && MyApplication.getInstance().getCartTest().size() > 0) {
-                RequestServerModel model = new RequestServerModel();
+        if (!isBranch.get()) {
+            if (requestModel.validate()) {
+                //  ((MainActivity) context).fileRequestFragment(requestModel);
+                if (MyApplication.getInstance().getCartTest() != null && MyApplication.getInstance().getCartTest().size() > 0) {
+                    RequestServerModel model = new RequestServerModel();
 
-                model.setCityId(requestModel.getCity());
-                model.setStateId(requestModel.getState());
-                model.setUserId(Integer.parseInt(Prefs.getString(CommonMethod.USERID)));
-                List<RequestServerModel.CardTest> cardTests = new ArrayList<>();
-                for (Test test : MyApplication.getInstance().getCartTest()) {
-                    RequestServerModel.CardTest cardTest = new RequestServerModel.CardTest();
-                    cardTest.setTestId(test.id);
-                    cardTest.setQty(test.getItemCartSize());
-                    cardTests.add(cardTest);
+                    model.setCityId(requestModel.getCity());
+                    model.setStateId(requestModel.getState());
+                    model.setUserId(Integer.parseInt(Prefs.getString(CommonMethod.USERID)));
+                    List<RequestServerModel.CardTest> cardTests = new ArrayList<>();
+                    for (Test test : MyApplication.getInstance().getCartTest()) {
+                        RequestServerModel.CardTest cardTest = new RequestServerModel.CardTest();
+                        cardTest.setTestId(test.id);
+                        cardTest.setQty(test.getItemCartSize());
+                        cardTests.add(cardTest);
+                    }
+                    model.setTest(cardTests);
+                    Log.d(TAG, "onNextClicked: " + new Gson().toJson(model));
+                    sedRequestDataToServer(model);
                 }
-                model.setTest(cardTests);
-                Log.d(TAG, "onNextClicked: " + new Gson().toJson(model));
-                sedRequestDataToServer(model);
             }
-        }
-        }else{
+        } else {
             Log.d(TAG, "onNextClicked: else part");
 
         }
@@ -289,13 +315,14 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
     }
 
 
-
     private void callFragment(List<LabModel> labModelList) {
-         if(labModelList.size()==1){
-             setLabModel(labModelList.get(0));
-         }else {
-             ((MainActivity) this.context).startFragment(LabFragment.newInstance(labModelList));
-         }
+        if (labModelList.size() == 1) {
+            ((MainActivity) context).getViewModel().setLabModel(labModelList.get(0));
+            Log.d(TAG, "callFragment: " + new Gson().toJson(((MainActivity) context).getViewModel().getModel().getValue()));
+            setLabModel(((MainActivity) context).getViewModel().getModel().getValue());
+        } else {
+            ((MainActivity) this.context).startFragment(LabFragment.newInstance(labModelList));
+        }
 
     }
 
@@ -315,7 +342,6 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
     public static void setCustomError(TextInputLayout layout, String error) {
         layout.setError(error);
     }
-
 
 
     @BindingAdapter(value = {"customEntriesState", "customEntriesStateModel", "customListener"}, requireAll = false)
@@ -346,11 +372,8 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
             public void onChanged(@Nullable List<City> cities) {
                 List<SpinnerGenericModel> models = new ArrayList<>();
                 if (cities != null) {
-                    for (City city :
-                            cities) {
-                        models.add(new SpinnerGenericModel(String.valueOf(city.getId()), city.getName()));
-                    }
-
+                    for (City city : cities) {
+                        models.add(new SpinnerGenericModel(String.valueOf(city.getId()), city.getName())); }
                     RequestViewModel.cities.clear();
                     RequestViewModel.cities.addAll(models);
                 }
@@ -371,12 +394,35 @@ public class RequestViewModel extends BaseObservable implements MainActivity.Per
 
 
     public void setLabModel(LabModel labModel) {
-        if(labModel!=null){
-             isBranch.set(true);
+        if (labModel != null) {
+            isBranch.set(true);
             progress.set(false);
+            setCardsItem();
 
 
         }
 
     }
+
+    @BindingAdapter(value = {"customAdapter"}, requireAll = false)
+    public static void productRecyclerview(RecyclerView recyclerView, GenericAdapter adapter) {
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setAdapter(adapter);
+
+
+    }
+
+
+    private void generateRvContent() {
+        TestItemViewModel itemModel = new TestItemViewModel(true);
+        itemModel.setListener(null);
+        genericAdapters = new GenericAdapter<>(tests, itemModel);
+    }
+
+    public void onWorkOrder(View view) {
+//    ((MainActivity)context).startFragment();
+        Log.d(TAG, "onWorkOrder: ");
+    }
+
 }

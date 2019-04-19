@@ -5,6 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="view"
+            type="android.view.View" />
 
         <variable
             name="loginModel"
@@ -15,6 +18,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".login.LoginFragment">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:fillViewport="true">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
         <RadioGroup
@@ -236,10 +248,57 @@
                     </LinearLayout>
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/inputEmail"
+                        android:id="@+id/inputState"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/llRegistration">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:focusableInTouchMode="false"
+                            android:focusable="false"
+                            android:onClick="@{loginModel::onStateClick}"
+                            app:error="@{loginModel.regModel.stateErr}"
+                            android:drawableLeft="@drawable/ic_action_mail"
+                            android:hint="Select State"
+
+
+                            android:textSize="14sp" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/inputState">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_action_phone"
+                            app:error="@{loginModel.regModel.cityErr}"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="Select City"
+                            android:onClick="@{loginModel::onCityClicked}"
+                            android:textSize="14sp"
+
+                            android:drawableStart="@drawable/ic_action_phone" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/inputCity">
 
                         <android.support.design.widget.TextInputEditText
                             android:layout_width="match_parent"
@@ -320,18 +379,56 @@
                             android:drawableStart="@drawable/ic_action_user" />
 
                     </android.support.design.widget.TextInputLayout>
+                    <TextView
+                        android:id="@+id/lblState"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/inputReference"
+                        android:layout_marginTop="@dimen/margin_4dp"
+                        android:text="Select State"
+                        android:visibility="invisible"
+                        android:textColor="@color/colorPrimary" />
 
+                    <Spinner
+                        android:id="@+id/spnrState"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/lblState"
+                        android:background="@drawable/bg_spinner"
+                        app:customEntriesState="@{loginModel.states}"
+                        app:customEntriesStateModel="@{loginModel.regModel}"
+                        app:customListener="@{loginModel.cityListener}" />
 
+                    <TextView
+                        android:id="@+id/lblCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/spnrState"
+                        android:layout_marginTop="@dimen/margin_4dp"
+                        android:text="Select City"
+                        android:visibility="invisible"
+
+                        android:textColor="@color/colorPrimary" />
+
+                    <Spinner
+                        android:id="@+id/spnrCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/lblCity"
+                        android:background="@drawable/bg_spinner"
+                        app:customEntriesCity="@{loginModel.cities}"
+                        app:customEntriesCityModel="@{loginModel.regModel}" />
 
                     <Button
                         android:id="@+id/btnSignIn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/inputReference"
+                        android:layout_below="@+id/spnrCity"
                         android:layout_marginTop="@dimen/margin_32dp"
                         android:background="@color/colorPrimary"
                         android:text="REGISTER "
                         android:onClick="@{loginModel::registerBtnClick}"
+                        android:visibility="@{loginModel.progressReg?view.GONE:view.VISIBLE}"
                         android:textColor="@color/white" />
 
                     <ProgressBar
@@ -339,6 +436,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/inputReference"
                         android:layout_centerHorizontal="true"
+                        android:visibility="@{loginModel.progressReg?view.VISIBLE:view.GONE}"
                         android:layout_marginTop="@dimen/margin_32dp" />
 
 
@@ -349,8 +447,8 @@
 
 
         </android.support.v7.widget.CardView>
-
-
+            </RelativeLayout>
+        </ScrollView>
     </RelativeLayout>
 </layout>
 

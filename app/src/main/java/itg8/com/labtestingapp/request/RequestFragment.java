@@ -18,11 +18,13 @@ import com.google.gson.Gson;
 
 import itg8.com.labtestingapp.MainActivity;
 import itg8.com.labtestingapp.R;
+import itg8.com.labtestingapp.common.BaseFragment;
 import itg8.com.labtestingapp.common.GlobalViewModel;
 import itg8.com.labtestingapp.common.MyApplication;
 import itg8.com.labtestingapp.databinding.FragmentRequestBinding;
 import itg8.com.labtestingapp.lab.LabSelectionListener;
 import itg8.com.labtestingapp.lab.model.LabModel;
+import itg8.com.labtestingapp.lab.mvvm.LabItemViewModel;
 import itg8.com.labtestingapp.lab.mvvm.LabViewModel;
 import itg8.com.labtestingapp.request.mvvm.RequestViewModel;
 
@@ -31,7 +33,7 @@ import itg8.com.labtestingapp.request.mvvm.RequestViewModel;
  * Use the {@link RequestFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RequestFragment extends Fragment implements LabSelectionListener {
+public class RequestFragment extends BaseFragment implements LabSelectionListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -40,9 +42,10 @@ public class RequestFragment extends Fragment implements LabSelectionListener {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private static final String TAG = "RequestFragment";
+    private static final String TAG = "MainRequestFragment";
     private RequestViewModel requestViewModel;
     private GlobalViewModel viewModel;
+    private LabItemViewModel labItemViewModel;
 
 
     public RequestFragment() {
@@ -74,6 +77,7 @@ public class RequestFragment extends Fragment implements LabSelectionListener {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        Log.d(TAG, "onCreate: ");
     }
 
     FragmentRequestBinding binding;
@@ -85,19 +89,14 @@ public class RequestFragment extends Fragment implements LabSelectionListener {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_request, container, false);
         View view = binding.getRoot();
 //        return inflater.inflate(R.layout.fragment_request,container,false);
-        if(requestViewModel==null)
+        if(requestViewModel==null) {
             requestViewModel = new RequestViewModel(MyApplication.getInstance(), this);
+            labItemViewModel = new LabItemViewModel();
+        }
         binding.setRequestModel(requestViewModel);
+        binding.setModel(labItemViewModel);
 
-
-        viewModel = ViewModelProviders.of((MainActivity) getActivity()).get(GlobalViewModel.class);
-        viewModel.getModel().observe(this, new Observer<LabModel>() {
-            @Override
-            public void onChanged(@Nullable LabModel model) {
-                requestViewModel.setLabModel(model);
-
-            }
-        });
+        Log.d(TAG, "onCreateView: ");
         return view;
     }
 
@@ -107,6 +106,8 @@ public class RequestFragment extends Fragment implements LabSelectionListener {
         if (getActivity() != null)
             ((MainActivity) getActivity()).setLabSelectedListner(this);
 
+        Log.d(TAG, "onAttach: ");
+
     }
 
     @Override
@@ -114,11 +115,41 @@ public class RequestFragment extends Fragment implements LabSelectionListener {
         if (model != null) {
             Log.d(TAG, "onLabSelected: " + new Gson().toJson(model));
 
-
+          
 
 
 
             //            viewModel.setLabModel(model)
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        viewModel = ViewModelProviders.of((MainActivity) getActivity()).get(GlobalViewModel.class);
+        viewModel.getModel().observe(this, new Observer<LabModel>() {
+            @Override
+            public void onChanged(@Nullable LabModel model) {
+                Log.d(TAG, "onChanged: model"+new Gson().toJson(model));
+                requestViewModel.setLabModel(model);
+
+
+
+
+            }
+        });
+      
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(TAG, "monDestroyView: ");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d(TAG, "monDetach: ");
     }
 }

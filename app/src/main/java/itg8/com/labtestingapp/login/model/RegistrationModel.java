@@ -16,6 +16,8 @@ public class RegistrationModel extends BaseObservable {
     private static final String ENTER_PASSWORD = "Please enter password";
     private static final String INVALID_USERNAME="please enter valid mobile number";
     private static final String INVALID_PASSWORD="Password must be minimum 6 character long";
+    private static final String INVALID_STATE="Please select your valid state";
+    private static final String INVALID_CITY="Please select your valid city";
 
     private String fname;
     private String fnameErr;
@@ -27,7 +29,42 @@ public class RegistrationModel extends BaseObservable {
     private String mobileErr;
     private String password;
     private String passwordErr;
+    private int state;
+    private int city;
     private String referenceBy;
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+
+
+    @Bindable
+    public String getStateErr() {
+        return stateErr;
+    }
+
+    public void setStateErr(String stateErr) {
+        this.stateErr = stateErr;
+        notifyPropertyChanged(BR.stateErr);
+    }
+
+    @Bindable
+    public String getCityErr() {
+        return cityErr;
+    }
+
+    public void setCityErr(String cityErr) {
+        this.cityErr = cityErr;
+        notifyPropertyChanged(BR.cityErr);
+    }
+
+    private String stateErr;
+    private String cityErr;
 
 
     public String getReferenceBy() {
@@ -159,5 +196,13 @@ public class RegistrationModel extends BaseObservable {
             isValid=false;
         }
         return isValid;
+    }
+
+    public int getCity() {
+        return city;
+    }
+
+    public void setCity(int city) {
+        this.city = city;
     }
 }

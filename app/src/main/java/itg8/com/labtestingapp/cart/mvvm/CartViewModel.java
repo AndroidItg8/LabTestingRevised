@@ -98,17 +98,18 @@ public class CartViewModel {
         itemModel.setListener(listener);
         genericAdapter= new GenericAdapter<>(tests, itemModel);
     }
+    @BindingAdapter(value = {"customTestAdapter"}, requireAll = false)
+    public static void productRecyclerview(RecyclerView recyclerView, GenericAdapter adapter) {
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        recyclerView.setAdapter(adapter);
+    }
 
     public void checkoutClick(View view){
         ((MainActivity)context).setLoginPage();
     }
 
 
-    @BindingAdapter(value = {"customTestAdapter"}, requireAll = false)
-    public static void productRecyclerview(RecyclerView recyclerView, GenericAdapter adapter) {
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        recyclerView.setAdapter(adapter);
-    }
+
 
 
 
