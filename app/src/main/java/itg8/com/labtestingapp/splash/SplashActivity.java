@@ -2,6 +2,7 @@ package itg8.com.labtestingapp.splash;
 
 import android.annotation.SuppressLint;
 import android.databinding.DataBindingUtil;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,8 +37,12 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void setViewModel() {
-        SplashViewModel model=new SplashViewModel(this,MyApplication.getInstance());
+        SplashViewModel model=new SplashViewModel(this,MyApplication.getInstance(), getSnackbar());
         binding.setSplashViewModel(model);
+    }
+
+    private Snackbar getSnackbar() {
+        return Snackbar.make(binding.progressbar, "", Snackbar.LENGTH_INDEFINITE);
     }
 
     private void hide() {

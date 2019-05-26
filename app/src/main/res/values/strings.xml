@@ -27,6 +27,9 @@
 
     <string name="facebook_app_id">298426384362961</string>
     <string name="fb_login_protocol_scheme">fb298426384362961</string>
+    <string name="orders">Order</string>
+    <string name="request">Request</string>
+    <string name="payment">Payment</string>
 
 
 </resources>

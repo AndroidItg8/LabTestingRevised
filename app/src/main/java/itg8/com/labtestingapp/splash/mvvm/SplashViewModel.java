@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 
 import org.json.JSONException;
@@ -29,6 +30,7 @@ import itg8.com.labtestingapp.common.MyApplication;
 import itg8.com.labtestingapp.common.NetworkCall;
 import itg8.com.labtestingapp.common.OnFinishInsertListener;
 import itg8.com.labtestingapp.common.Prefs;
+import itg8.com.labtestingapp.common.UtilSnackbar;
 import itg8.com.labtestingapp.db.repository.CityRepository;
 import itg8.com.labtestingapp.db.repository.MainCategoryRepository;
 import itg8.com.labtestingapp.db.repository.StateRepository;
@@ -60,14 +62,16 @@ public class SplashViewModel extends ViewModel {
 
     private Context context;
     private Application application;
+    private Snackbar mSnackbar;
 
     StateCityController controller;
 
     CompositeDisposable disposable=new CompositeDisposable();
 
-    public SplashViewModel(Context context, Application application) {
+    public SplashViewModel(Context context, Application application, Snackbar snackbar) {
         this.context = context;
         this.application = application;
+        mSnackbar = snackbar;
         progress=new ObservableInt();
         initAllObservable();
 
@@ -123,6 +127,20 @@ public class SplashViewModel extends ViewModel {
 
     private void failToDownload(Throwable throwable) {
         throwable.printStackTrace();
+        progressVisibility.set(View.GONE);
+   showSnackbar(throwable.getMessage());
+
+    }
+
+    private void showSnackbar(String message) {
+        mSnackbar.setText(message);
+        mSnackbar.setAction("Retry", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        mSnackbar.show();
     }
 
     private void saveCategories(CategoryModel model) {
@@ -131,6 +149,9 @@ public class SplashViewModel extends ViewModel {
             @Override
             public void onFinish() {
                 isCategoryFinish.set(true);
+                progressVisibility.set(View.GONE);
+
+
             }
         });
         SubCategoryRepository repository2=new SubCategoryRepository(MyApplication.getInstance());
@@ -138,6 +159,9 @@ public class SplashViewModel extends ViewModel {
             @Override
             public void onFinish() {
                 isSubCategoryFinish.set(true);
+                progressVisibility.set(View.GONE);
+
+
             }
         });
         TestRepository repository3=new TestRepository(MyApplication.getInstance());
@@ -145,6 +169,9 @@ public class SplashViewModel extends ViewModel {
             @Override
             public void onFinish() {
                 isTestFinish.set(true);
+                progressVisibility.set(View.GONE);
+
+
             }
         });
 
@@ -157,7 +184,6 @@ public class SplashViewModel extends ViewModel {
 
     private void downloadCountry() {
         proceedButton.set(View.VISIBLE);
-        progressVisibility.set(View.GONE);
     }
 
     public void onProceedClick(View view){
@@ -173,6 +199,10 @@ public class SplashViewModel extends ViewModel {
                 @Override
                 public void onFinish() {
                     isStateFinish.set(true);
+                    progressVisibility.set(View.GONE);
+
+
+
                 }
             });
         } catch (IOException e) {
@@ -191,6 +221,9 @@ public class SplashViewModel extends ViewModel {
                 @Override
                 public void onFinish() {
                     isCityFinish.set(true);
+                    progressVisibility.set(View.GONE);
+
+
                 }
             });
         } catch (IOException e) {

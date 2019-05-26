@@ -76,8 +76,60 @@ public class MyApplication extends Application {
         mInstance=this;
         mInstance.initPref();
         mInstance.initNetworkCall();
+        int [] array={2,5,8,10,6};
+
+        miniMaxSum(array);
+
+
+
     }
 
+    static void miniMaxSum(int[] arr) {
+
+        int minValue=findMinNumber(arr);
+        int maxValue =findMaxNUmber(arr);
+        int sumMin=0;
+        int sumMax=0;
+        for(int i=0; i<arr.length; i++){
+            if(minValue==arr[i]){
+                continue;
+            }else{
+                sumMax=sumMax+arr[i];
+            }
+            if(maxValue==arr[i]){
+                continue;
+            }else{
+                sumMin=sumMin+arr[i];
+            }
+        }
+        //  System.out.println(sumMin,sumMax);
+        System.out.println(sumMax + ", " +sumMin);
+
+    }
+
+
+    public static int findMaxNUmber(int[] numbers){
+        int maxValue= numbers[0];
+        for(int i=1;i < numbers.length;i++){
+            if(numbers[i] > maxValue){
+                maxValue = numbers[i];
+            }
+        }
+        System.out.println("maxValue"+maxValue);
+
+        return maxValue;
+    }
+
+    public static int findMinNumber(int[] numbers){
+        int minValue = numbers[0];
+        for(int i=1;i<numbers.length;i++){
+            if(numbers[i] < minValue){
+                minValue = numbers[i];
+            }
+        }
+        System.out.println("minValue"+minValue);
+        return minValue;
+    }
     private void initNetworkCall() {
         new NetworkCall.NetworkBuilder().build();
     }
